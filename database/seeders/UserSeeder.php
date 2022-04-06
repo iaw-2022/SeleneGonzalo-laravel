@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
 
         $data = [
             'name' => 'Selene',
-            'email' => 'iaw-selenegonzalo@gmail.com',
+            'email' => 'iawselenegonzalo@gmail.com',
             'password' => $password
         ];
         DB :: table ('users') -> insert ($data);
