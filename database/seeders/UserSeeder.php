@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Fecades\DB;
-use Illuminate\Support\Fecades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 
@@ -17,10 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $password = $hashed = Hash::make('Selene278827',[
-
-            'rounds' => 12,
-        ]);
+        $password = $hashed = Hash::make('Selene278827');
 
         $data = [
             'name' => 'Selene',
