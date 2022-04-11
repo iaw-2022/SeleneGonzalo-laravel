@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BelongsRelationSeeder extends Seeder
 {
@@ -28,7 +29,7 @@ class BelongsRelationSeeder extends Seeder
             ],
 
             #PAN
-            
+
             [
                 'id_category' => '1',
                 'id_recipe' => '2'

@@ -17,8 +17,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $password_selene = $hashed = Hash::make('Selene278827');
-        $password_fausto = $hashed = Hash::make('Fausto121112');
+        $password_selene = Hash::make('Selene278827');
+        $password_fausto = Hash::make('Fausto121112');
 
         $data = [
             [
