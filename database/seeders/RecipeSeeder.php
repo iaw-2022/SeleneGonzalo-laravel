@@ -20,7 +20,7 @@ class RecipeSeeder extends Seeder
             #BUÑUELOS
 
             [
-                'name' => 'buñuelos',
+                'name' => 'Buñuelos',
                 'image' => 'https://www.pequerecetas.com/wp-content/uploads/2021/02/bunuelos-de-cuaresma-receta-660x879.jpg',
                 'description' => 'Buñuelos aptos para celíacos, ¡ideales para una tarde lluviosa!'
             ],
@@ -28,7 +28,7 @@ class RecipeSeeder extends Seeder
             #PAN
 
             [
-                'name' => 'pan',
+                'name' => 'Pan',
                 'image' => 'https://t1.uc.ltmcdn.com/es/posts/1/8/0/como_hacer_pan_sin_gluten_23081_600.jpg',
                 'description' => 'Pan sin gluten, ideal para acompañar con el mate, hacer hamburguesas, panchos, choripanes, ¡lo que quieras!'
             ]

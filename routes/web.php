@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +23,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('recipes', RecipeController::class);
+
+Route::resource('ingredients', IngredientController::class);
+
+Route::resource('categories', CategoryController::class);
+
+Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show']);
 
 require __DIR__.'/auth.php';

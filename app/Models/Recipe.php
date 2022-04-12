@@ -19,4 +19,8 @@ class Recipe extends Model
         'image',
         'description'
     ];
+
+    public function ingredients (){
+        return $this -> belongsToMany (Ingredient::class,'has', 'id_recipe', 'id_ingredient')-> withPivot('lot');
+    }
 }

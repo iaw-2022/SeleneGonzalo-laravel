@@ -17,34 +17,34 @@ class IngredientSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'huevo'
+                'name' => 'Huevo'
             ],
             [
-                'name' => 'premezcla sin gluten'
+                'name' => 'Premezcla sin gluten'
             ],
             [
-                'name' => 'azucar'
+                'name' => 'Azucar'
             ],
             [
-                'name' => 'polvo de hornear'
+                'name' => 'Polvo de hornear'
             ],
             [
-                'name' => 'leche'
+                'name' => 'Leche'
             ],
             [
-                'name' => 'esencia de vainilla'
+                'name' => 'Esencia de vainilla'
             ],
             [
-                'name' => 'sal'
+                'name' => 'Sal'
             ],
             [
-                'name' => 'aceite'
+                'name' => 'Aceite'
             ],
             [
-                'name' => 'agua'
+                'name' => 'Agua'
             ],
             [
-                'name' => 'levadura en polvo'
+                'name' => 'Levadura en polvo'
             ]
         ];
         DB :: table ('ingredients') -> insert ($data);
