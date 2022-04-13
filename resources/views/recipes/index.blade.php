@@ -4,6 +4,9 @@
 <h1>RECETAS SIN TACC</h1>
 <table class= "table table-striped">
     <thead class = "text-center">
+        <th>Nombre receta</th>
+        <th>Imagen ilustrativa</th>
+        <th>Ingredientes</th>
     </thead>
     <tbody class = "text-center">
         @foreach ($recipes as $recipe)

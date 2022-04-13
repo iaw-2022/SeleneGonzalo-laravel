@@ -9,6 +9,8 @@ class Recipe extends Model
 {
     use HasFactory;
     protected $table = 'recipes';
+    #protected $primaryKey = 'email';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,5 +24,9 @@ class Recipe extends Model
 
     public function ingredients (){
         return $this -> belongsToMany (Ingredient::class,'has', 'id_recipe', 'id_ingredient')-> withPivot('lot');
+    }
+
+    public function qualifications (){
+        return $this -> belongsToMany (User::class, 'qualifies', 'id_recipe','id_user') -> withPivot('commentary','qualification');
     }
 }

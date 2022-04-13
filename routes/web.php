@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::resource('ingredients', IngredientController::class);
 
 Route::resource('categories', CategoryController::class);
 
+Route::resource('users', UserController::class);
+
 Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show']);
+
+Route::get('/{id}',[App\Http\Controllers\CategoryController::class,'show']);
+
+Route::get('/recipes/{id}',[App\Http\Controllers\IngredientController::class,'show']);
 
 require __DIR__.'/auth.php';

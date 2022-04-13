@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('qualifies', function (Blueprint $table) {
-            $table->string('user_email');
+            $table->bigInteger('id_user');
             $table->bigInteger('id_recipe');
             $table->string('commentary');
             $table->string('qualification');
-            $table->foreign('user_email')->references('email')->on('users');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('id_recipe')->references('id')->on('recipes');
             $table->timestamps();
         });

@@ -4,13 +4,13 @@
 <h1>INGREDIENTES</h1>
 <table class= "table table-striped">
     <thead>
-        <th>Nombre</th>
+        <th>Nombre ingrediente</th>
     </thead>
     <tbody>
         @foreach ($ingredients as $ingredient)
             <tr>
                 <td>
-                    {{$ingredient -> name}}
+                    <a href="">{{$ingredient -> name}}</a>
                 </td>
             </tr>
             @endforeach

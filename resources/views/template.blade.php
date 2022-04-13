@@ -10,7 +10,7 @@
   </head>
   <body>
       <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light" style= "background-color: #a3d4e6;">
             <div class="container-fluid">
               <a class="navbar-brand" href="/recipes">Recetas</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
                     <a class="nav-link active" aria-current="page" href="/categories">Categorías</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Usuarios</a>
+                    <a class="nav-link active" aria-current="page" href="/users">Usuarios</a>
                   </li>
                 </ul>
                 <form class="d-flex">

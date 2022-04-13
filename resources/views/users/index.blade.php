@@ -1,14 +1,18 @@
 @extends('template')
 
 @section('container')
-<h1>CATEGORIAS</h1>
+<h1>USUARIOS</h1>
 <table class= "table table-striped">
-
+    <thead>
+        <th>
+            Nombre de usuario
+        </th>
+    </thead>
     <tbody>
-        @foreach ($categories as $category)
+        @foreach ($users as $user)
             <tr>
                 <td>
-                    <a href="{{$category -> id}}">{{$category -> name}}</a>
+                    <a href="{{$user -> email}}">{{$user -> name}}</a>
                 </td>
             </tr>
             @endforeach

@@ -1,14 +1,13 @@
 @extends('template')
 
 @section('container')
-<h1>CATEGORIAS</h1>
+<h1>Recetas para {{$category -> name}}</h1>
 <table class= "table table-striped">
-
     <tbody>
-        @foreach ($categories as $category)
+        @foreach ($category -> recipes as $c)
             <tr>
                 <td>
-                    <a href="{{$category -> id}}">{{$category -> name}}</a>
+                <a href="/recipes/{{$c -> id}}">{{$c -> name}}</a>
                 </td>
             </tr>
             @endforeach

@@ -19,7 +19,7 @@ class QualifiesRelationSeeder extends Seeder
             [
                 'commentary' => 'Recomiendo usar un huevo en vez de dos, el resto impecable! ',
                 'qualification' => '8.5/10',
-                'user_email' => 'faustojgonzalo@gmail.com',
+                'id_user' => '2',
                 'id_recipe' => '1'
             ]
         ];

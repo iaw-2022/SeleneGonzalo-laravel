@@ -17,4 +17,8 @@ class Ingredient extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function recipes (){
+        return $this -> belongsToMany (Recipe::class,'has', 'id_ingredient', 'id_recipe');
+    }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ingredient;
+use App\Models\User;
 
-class IngredientController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        $ingredients = Ingredient::all();
-        return view('ingredients.index')-> with ('ingredients', $ingredients);
+        $users = User::all();
+        return view('users.index')-> with ('users', $users);
     }
 
     /**
@@ -47,8 +47,7 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-        $ingredient = Ingredient::find($id);
-        return view ('ingredients.index') -> with ('ingredient',$ingredient);
+        //
     }
 
     /**
