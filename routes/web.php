@@ -35,8 +35,8 @@ Route::resource('users', UserController::class);
 
 Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show']);
 
-Route::get('/{id}',[App\Http\Controllers\CategoryController::class,'show']);
+Route::get('/category/{id}',[App\Http\Controllers\CategoryController::class,'show']);
 
-Route::get('/recipes/{id}',[App\Http\Controllers\IngredientController::class,'show']);
+Route::get('/ingredient/{id}',[App\Http\Controllers\IngredientController::class,'show']);
 
 require __DIR__.'/auth.php';

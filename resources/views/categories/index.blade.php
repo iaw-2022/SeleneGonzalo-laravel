@@ -8,7 +8,7 @@
         @foreach ($categories as $category)
             <tr>
                 <td>
-                    <a href="{{$category -> id}}">{{$category -> name}}</a>
+                    <a href="/category/{{$category -> id}}">{{$category -> name}}</a>
                 </td>
             </tr>
             @endforeach

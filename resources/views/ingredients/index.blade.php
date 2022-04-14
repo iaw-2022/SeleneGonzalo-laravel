@@ -10,7 +10,7 @@
         @foreach ($ingredients as $ingredient)
             <tr>
                 <td>
-                    <a href="">{{$ingredient -> name}}</a>
+                    <a href="/ingredient/{{$ingredient -> id}}">{{$ingredient -> name}}</a>
                 </td>
             </tr>
             @endforeach
