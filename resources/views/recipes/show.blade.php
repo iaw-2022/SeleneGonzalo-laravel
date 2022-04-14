@@ -10,15 +10,15 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{$recipe -> name}}</h5>
+              <h5 class="card-title" style = "font-family:verdana;">{{$recipe -> name}}</h5>
               <p class="card-text">
-                  <small class="text-muted">
+                  <small class="text-muted" style = "font-family:verdana;">
                         @foreach ($recipe -> ingredients as $ingredient)
                                 {{$ingredient -> pivot-> lot}} de {{$ingredient -> name}}<br>
                         @endforeach
                   </small>
               </p>
-              <p class="card-text" style = "white-space: pre-line">{{$recipe -> description}}</p>
+              <p class="card-text" style = "white-space: pre-line" style = "font-family:verdana;">{{$recipe -> description}}</p>
           </div>
         </div>
       </div>

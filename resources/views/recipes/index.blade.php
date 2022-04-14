@@ -1,23 +1,22 @@
 @extends('template')
 
 @section('container')
-<h1 style = "font-family:courier;" class = "text-center">RECETACCS</h1>
 <table class= "table table-striped">
     <thead class = "text-center">
-        <th>Nombre receta</th>
-        <th>Imagen ilustrativa</th>
-        <th>Ingredientes</th>
+        <th style = "font-family:verdana;">Nombre receta</th>
+        <th style = "font-family:verdana;">Imagen ilustrativa</th>
+        <th style = "font-family:verdana;">Ingredientes</th>
     </thead>
     <tbody class = "text-center">
         @foreach ($recipes as $recipe)
             <tr>
                 <td>
-                    <a href="/recipes/{{$recipe -> id}}">{{$recipe -> name}}</a>
+                    <a style = "font-family:verdana;" href="/recipes/{{$recipe -> id}}">{{$recipe -> name}}</a>
                 </td>
                 <td>
                     <img src="{{$recipe -> image}}" alt="imagen receta {{$recipe -> name}}" style = "width: 200px">
                 </td>
-                <td style="text-align:left">
+                <td style="text-align:left; font-family:verdana;">
                     @foreach ($recipe -> ingredients as $ingredient)
                         {{$ingredient -> name}} <br>
                     @endforeach

@@ -1,16 +1,16 @@
 @extends('template')
 
 @section('container')
-<h1>INGREDIENTES</h1>
+<h1 style = "font-family:verdana;">INGREDIENTES</h1>
 <table class= "table table-striped">
     <thead>
-        <th>Nombre ingrediente</th>
+        <th style = "font-family:verdana;">  Nombre ingrediente</th>
     </thead>
     <tbody>
         @foreach ($ingredients as $ingredient)
             <tr>
                 <td>
-                    <a href="/ingredient/{{$ingredient -> id}}">{{$ingredient -> name}}</a>
+                    <a style = "font-family:verdana;" href="/ingredient/{{$ingredient -> id}}">{{$ingredient -> name}}</a>
                 </td>
             </tr>
             @endforeach
