@@ -11,7 +11,6 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">{{$recipe -> name}}</h5>
-              <p class="card-text">{{$recipe -> description}}</p>
               <p class="card-text">
                   <small class="text-muted">
                         @foreach ($recipe -> ingredients as $ingredient)
@@ -19,6 +18,7 @@
                         @endforeach
                   </small>
               </p>
+              <p class="card-text" style = "white-space: pre-line">{{$recipe -> description}}</p>
           </div>
         </div>
       </div>
@@ -28,16 +28,16 @@
   <ul class="list-group list-group-flush">
     @foreach ($recipe -> qualifications as $q)
       <li class="list-group-item">
-        {{$q -> name}}  
+        Nombre de usuario: {{$q -> name}}  
       </li>
       <li class="list-group-item">
-        {{$q -> email}}
+        e-mail: {{$q -> email}}
       </li>
       <li class="list-group-item">
-        {{$q -> pivot -> qualification}} 
+        Calificación: {{$q -> pivot -> qualification}} 
       </li>
       <li class="list-group-item">  
-        {{$q -> pivot -> commentary}} 
+        Comentario: {{$q -> pivot -> commentary}} 
       </li>
     @endforeach
   </ul>

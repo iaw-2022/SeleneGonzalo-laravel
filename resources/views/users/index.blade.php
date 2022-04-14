@@ -12,11 +12,10 @@
         @foreach ($users as $user)
             <tr>
                 <td>
-                    <a href="{{$user -> email}}">{{$user -> name}}</a>
+                    <a href="/user/{{$user -> id}}">{{$user -> name}}</a>
                 </td>
             </tr>
-            @endforeach
-        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection

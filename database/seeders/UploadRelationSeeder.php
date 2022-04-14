@@ -18,11 +18,11 @@ class UploadRelationSeeder extends Seeder
         $data = [
             [
                 'id_recipe' => '1',
-                'user_email' => 'iawselenegonzalo@gmail.com',
+                'id_user' => '1'
             ],
             [
                 'id_recipe' => '2',
-                'user_email' => 'faustojgonzalo@gmail.com',
+                'id_user' => '2'
             ]
         ];
         DB :: table ('upload') -> insert ($data);

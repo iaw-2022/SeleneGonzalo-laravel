@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('upload', function (Blueprint $table) {
             $table->bigInteger('id_recipe');
-            $table->string('id_user');
+            $table->bigInteger('id_user');
             $table->foreign('id_recipe')->references('id')->on('recipes');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();

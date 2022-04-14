@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect() -> to('login');
 });
 
 Route::get('/dashboard', function () {
@@ -38,5 +38,7 @@ Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show']
 Route::get('/category/{id}',[App\Http\Controllers\CategoryController::class,'show']);
 
 Route::get('/ingredient/{id}',[App\Http\Controllers\IngredientController::class,'show']);
+
+Route::get('/user/{id}',[App\Http\Controllers\UserController::class,'show']);
 
 require __DIR__.'/auth.php';
