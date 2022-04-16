@@ -21,6 +21,10 @@ Route::get('/', function () {
     return redirect() -> to('login');
 });
 
+Route::get('/filters', function () {
+    return view('filters');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('container')
-<table class= "table table-striped">
+<table class= "table table-bordered">
     <thead class = "text-center">
         <th style = "font-family:verdana;">Nombre receta</th>
         <th style = "font-family:verdana;">Imagen ilustrativa</th>
@@ -27,3 +27,5 @@
     </tbody>
 </table>
 @endsection
+
+    

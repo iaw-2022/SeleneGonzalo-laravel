@@ -10,8 +10,8 @@
   </head>
   <body>
       <header>
-        <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style= "background-color: #a3d4e6;">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light justify-content-center" style= "background-color: #ffcc00">
+            <div class="container">
               <a class="navbar-brand" style = "font-family:verdana;" href="/recipes"> 
                 <span class="material-icons-outlined"> menu_book </span>
                 Recetas
@@ -39,14 +39,8 @@
                       Usuarios
                     </a>
                   </li>
-                  <h2 style = "font-family:verdana;" class = "text-center">RECETACCS</h2>
+                  <h2 style = "font-family:verdana;">RECETACCS</h2>
                 </ul>
-                <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Buscar" style = "font-family:verdana;" aria-label="Buscar">
-                  <button class="btn btn-outline-success" style = "font-family:verdana;" type="submit">
-                    <span class="material-icons-outlined">search</span>
-                  </button>
-                </form>
               </div>
             </div>
           </nav>

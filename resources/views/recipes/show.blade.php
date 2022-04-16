@@ -25,6 +25,7 @@
     </div>
   </div>
 <div class="card mx-auto" style="width: 62.5rem;">
+<h4 style = "font-family:verdana;">Calificaciones y comentarios:</h4>
   <ul class="list-group list-group-flush">
     @foreach ($recipe -> qualifications as $q)
       <li class="list-group-item">
