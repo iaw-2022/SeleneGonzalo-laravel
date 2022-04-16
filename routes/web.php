@@ -29,20 +29,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('recipes', RecipeController::class);
+Route::resource('recipes', RecipeController::class) -> middleware(['auth']);
 
-Route::resource('ingredients', IngredientController::class);
+Route::resource('ingredients', IngredientController::class)-> middleware(['auth']);
 
-Route::resource('categories', CategoryController::class);
+Route::resource('categories', CategoryController::class)-> middleware(['auth']);
 
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)-> middleware(['auth']);
 
-Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show']);
+Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show'])-> middleware(['auth']);
 
-Route::get('/category/{id}',[App\Http\Controllers\CategoryController::class,'show']);
+Route::get('/category/{id}',[App\Http\Controllers\CategoryController::class,'show'])-> middleware(['auth']);
 
-Route::get('/ingredient/{id}',[App\Http\Controllers\IngredientController::class,'show']);
+Route::get('/ingredient/{id}',[App\Http\Controllers\IngredientController::class,'show'])-> middleware(['auth']);
 
-Route::get('/user/{id}',[App\Http\Controllers\UserController::class,'show']);
+Route::get('/user/{id}',[App\Http\Controllers\UserController::class,'show'])-> middleware(['auth']);
 
 require __DIR__.'/auth.php';
