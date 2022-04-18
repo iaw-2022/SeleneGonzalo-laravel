@@ -21,14 +21,6 @@ Route::get('/', function () {
     return redirect() -> to('login');
 });
 
-Route::get('/filters', function () {
-    return view('filters');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 Route::resource('recipes', RecipeController::class) -> middleware(['auth']);
 
 Route::resource('ingredients', IngredientController::class)-> middleware(['auth']);
@@ -36,8 +28,6 @@ Route::resource('ingredients', IngredientController::class)-> middleware(['auth'
 Route::resource('categories', CategoryController::class)-> middleware(['auth']);
 
 Route::resource('users', UserController::class)-> middleware(['auth']);
-
-Route::get('/recipes/{id}',[App\Http\Controllers\RecipeController::class,'show'])-> middleware(['auth']);
 
 Route::get('/category/{id}',[App\Http\Controllers\CategoryController::class,'show'])-> middleware(['auth']);
 

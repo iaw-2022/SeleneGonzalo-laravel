@@ -16,6 +16,6 @@ class Upload extends Model
      */
     protected $fillable = [
         'id_recipe',
-        'user_email'
+        'id_user'
     ];
 }

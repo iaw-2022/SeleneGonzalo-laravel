@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
+
     <!--  Tipografias  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"  rel="stylesheet">
 
     <!--  Datatables  -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>  
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
 
     <!--  extension responsive  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
@@ -19,24 +19,23 @@
     <title>RECETACCS</title>
   </head>
   <body>
-    <div class="b-example-divider"></div>
     <div class="container">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-xxl-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-2 text-dark text-decoration-none ml-auto">
           <img src="https://logos-download.com/wp-content/uploads/2021/01/Sin_T.A.C.C._Logo.png" alt="" style="width:50px;">
           <h1 style = "font-family:verdana;">RECETACCS</h1>
         </a>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 mx-auto ">
           <li><a href="/recipes" class="nav-link px-2 link-dark">
-                <span class="material-icons-outlined"> 
-                  menu_book 
+                <span class="material-icons-outlined">
+                  menu_book
                 </span>
                 Recetas
               </a>
             </li>
           <li><a href="/ingredients" class="nav-link px-2 link-dark">
-                <span class="material-icons-outlined"> 
+                <span class="material-icons-outlined">
                   egg_alt
                 </span>
                 Ingredientes
@@ -57,9 +56,15 @@
               </a>
             </li>
         </ul>
-        <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-primary">Salir</button>
-        </div>
+        <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+                        Salir
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+            class="d-none">
+            @csrf
+        </form>
+
       </header>
     </div>
     <div class="container">

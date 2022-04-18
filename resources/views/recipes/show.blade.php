@@ -24,23 +24,23 @@
       </div>
     </div>
   </div>
-<div class="card mx-auto" style="width: 62.5rem;">
+<div class="card mx-auto" style="max-width: 1000px;">
 <h4 style = "font-family:verdana;">Calificaciones y comentarios:</h4>
   <ul class="list-group list-group-flush">
     @foreach ($recipe -> qualifications as $q)
       <li class="list-group-item">
-        Nombre de usuario: {{$q -> name}}  
+        Nombre de usuario: {{$q -> name}}
       </li>
       <li class="list-group-item">
         e-mail: {{$q -> email}}
       </li>
       <li class="list-group-item">
-        Calificación: {{$q -> pivot -> qualification}} 
+        Calificación: {{$q -> pivot -> qualification}}
       </li>
-      <li class="list-group-item">  
-        Comentario: {{$q -> pivot -> commentary}} 
+      <li class="list-group-item">
+        Comentario: {{$q -> pivot -> commentary}}
       </li>
     @endforeach
   </ul>
-</div> 
+</div>
 @endsection
