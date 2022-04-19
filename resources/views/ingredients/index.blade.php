@@ -1,19 +1,34 @@
 @extends('template')
 
 @section('container')
-<h1 style = "font-family:verdana;">INGREDIENTES</h1>
+<a class = "mb-3 btn btn-success" href="">
+    Agregar ingrediente
+</a>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <table class= "table table-striped display nowrap" cellspacing="0" id="ingredients-table" width="100%">
+            <table class= "table table-bordered display nowrap" cellspacing="0" id="ingredients-table" width="100%">
                 <thead>
                     <th style = "font-family:verdana;">  Nombre ingrediente</th>
+                    <th style = "font-family:verdana;">  Acciones</th>
                 </thead>
                 <tbody>
                     @foreach ($ingredients as $ingredient)
                         <tr>
                             <td>
                                 <a style = "font-family:verdana;" href="/ingredient/{{$ingredient -> id}}">{{$ingredient -> name}}</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <span class="material-icons-outlined">
+                                        edit
+                                    </span>
+                                </a>
+                                <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <span class="material-icons-outlined">
+                                        delete
+                                    </span>
+                                </a>
                             </td>
                         </tr>
                         @endforeach

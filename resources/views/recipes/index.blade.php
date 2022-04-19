@@ -1,6 +1,9 @@
 @extends('template')
 
 @section('container')
+<a class = "mb-3 btn btn-success" href="">
+    Agregar receta
+</a>
 <div class="container">
        <div class="row">
            <div class="col-lg-12">
@@ -9,6 +12,7 @@
                         <th style = "font-family:verdana;">Nombre receta</th>
                         <th style = "font-family:verdana;">Imagen ilustrativa</th>
                         <th style = "font-family:verdana;">Ingredientes</th>
+                        <th style = "font-family:verdana;">Acciones</th>
                     </thead>
                     <tbody class = "text-center">
                         @foreach ($recipes as $recipe)
@@ -23,6 +27,18 @@
                                     @foreach ($recipe -> ingredients as $ingredient)
                                         {{$ingredient -> name}} <br>
                                     @endforeach
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <span class="material-icons-outlined">
+                                            edit
+                                        </span>
+                                    </a>
+                                    <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <span class="material-icons-outlined">
+                                            delete
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
