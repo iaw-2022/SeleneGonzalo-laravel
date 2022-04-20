@@ -2,22 +2,30 @@
 
 @section('container')
 
-<a class = "mb-3 btn btn-success" href="">
+<a class = "mb-3 btn btn-success" href="users/create">
     Agregar usuario
 </a>
 <table class= "table table-bordered display nowrap" cellspacing="0" id="users-table">
     <thead>
+        <th style = "font-family:verdana;">ID</th>
         <th style = "font-family:verdana;">Nombre de usuario</th>
+        <th style = "font-family:verdana;">e-mail</th>
         <th style = "font-family:verdana;">Acciones</th>
     </thead>
     <tbody>
         @foreach ($users as $user)
             <tr>
                 <td>
+                    <a style = "font-family:verdana;">{{$user -> id}}</a>
+                </td>
+                <td>
                     <a style = "font-family:verdana;" href="/user/{{$user -> id}}">{{$user -> name}}</a>
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="">
+                    <a style = "font-family:verdana;">{{$user -> email}}</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="users/{{$user -> id}}/edit">
                         <span class="material-icons-outlined">
                             edit
                         </span>

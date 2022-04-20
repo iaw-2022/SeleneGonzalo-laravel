@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view ('categories.create');
     }
 
     /**
@@ -36,7 +36,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categories = new Category();
+        $categories-> name = $request-> get('name');
+
+        $categories->save();
+
+        return redirect('/categories');
     }
 
     /**
@@ -59,7 +64,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view ('categories.edit')->with('category',$category);
     }
 
     /**
@@ -71,7 +77,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category-> name = $request-> get('name');
+
+        $category->save();
+
+        return redirect('/categories');
     }
 
     /**
@@ -82,6 +93,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect('/categories');
     }
 }

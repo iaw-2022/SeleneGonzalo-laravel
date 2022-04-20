@@ -25,7 +25,7 @@ class IngredientController extends Controller
      */
     public function create()
     {
-        //
+        return view ('ingredients.create');
     }
 
     /**
@@ -36,7 +36,12 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ingredients = new Ingredient();
+        $ingredients-> name = $request-> get('name');
+
+        $ingredients->save();
+
+        return redirect('/ingredients');
     }
 
     /**
@@ -59,7 +64,8 @@ class IngredientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ingredient = Ingredient::find($id);
+        return view ('ingredients.edit')->with('ingredient',$ingredient);
     }
 
     /**
@@ -71,7 +77,12 @@ class IngredientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ingredient = Ingredient::find($id);
+        $ingredient-> name = $request-> get('name');
+
+        $ingredient->save();
+
+        return redirect('/ingredients');
     }
 
     /**
@@ -82,6 +93,9 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ingredient = Ingredient::find($id);
+        $ingredient->delete();
+
+        return redirect('/ingredients');
     }
 }

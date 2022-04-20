@@ -9,6 +9,7 @@
            <div class="col-lg-12">
                 <table class= "table table-bordered display nowrap" cellspacing="0" id="recipe-table" width="100%">
                     <thead class = "text-center">
+                        <th style = "font-family:verdana;">ID</th>
                         <th style = "font-family:verdana;">Nombre receta</th>
                         <th style = "font-family:verdana;">Imagen ilustrativa</th>
                         <th style = "font-family:verdana;">Ingredientes</th>
@@ -17,6 +18,9 @@
                     <tbody class = "text-center">
                         @foreach ($recipes as $recipe)
                             <tr>
+                                <td>
+                                    <a style = "font-family:verdana;">{{$recipe -> id}}</a>
+                                </td>
                                 <td>
                                     <a style = "font-family:verdana;" href="/recipes/{{$recipe -> id}}">{{$recipe -> name}}</a>
                                 </td>
@@ -29,12 +33,12 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a class="btn btn-primary" href="">
                                         <span class="material-icons-outlined">
                                             edit
                                         </span>
                                     </a>
-                                    <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a class="btn btn-danger" href="">
                                         <span class="material-icons-outlined">
                                             delete
                                         </span>
