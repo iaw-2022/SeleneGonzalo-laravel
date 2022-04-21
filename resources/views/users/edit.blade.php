@@ -16,7 +16,7 @@
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Contraseña</label>
-    <input id="pass" name="pass" type="text" class="form-control" value = "{{$user->pass}}">
+    <input id="pass" name="pass" type="text" class="form-control" value = "{{$user->password}}">
   </div>
   <a href="/users" class="btn btn-secondary" tabindex="5">Cancelar</a>
   <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
