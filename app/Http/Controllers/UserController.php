@@ -82,8 +82,8 @@ class UserController extends Controller
         $user = User::find($id);
 
         $users-> name = $request-> get('name');
-        $users-> name = $request-> get('email');
-        $users-> name = $request-> get('pass');
+        $users-> email = $request-> get('email');
+        $users-> password = $request-> get('pass');
 
         $users->save();
 
