@@ -9,7 +9,6 @@
            <div class="col-lg-12">
                 <table class= "table table-bordered display nowrap" cellspacing="0" id="recipe-table" width="100%">
                     <thead class = "text-center">
-                        <th style = "font-family:verdana;">ID</th>
                         <th style = "font-family:verdana;">Nombre receta</th>
                         <th style = "font-family:verdana;">Imagen ilustrativa</th>
                         <th style = "font-family:verdana;">Ingredientes</th>
@@ -18,9 +17,6 @@
                     <tbody class = "text-center">
                         @foreach ($recipes as $recipe)
                             <tr>
-                                <td>
-                                    <a style = "font-family:verdana;">{{$recipe -> id}}</a>
-                                </td>
                                 <td>
                                     <a style = "font-family:verdana;" href="/recipes/{{$recipe -> id}}">{{$recipe -> name}}</a>
                                 </td>
@@ -33,14 +29,15 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="">
-                                        <span class="material-icons-outlined">
-                                            edit
-                                        </span>
-                                    </a>
-                                    <a class="btn btn-danger" href="">
+                                    <!-- Invocacion al Modal -->
+                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$recipe->id}}">
                                         <span class="material-icons-outlined">
                                             delete
+                                        </span>
+                                    </button>
+                                    <a class="btn btn-primary" href="recipes/{{$recipe -> id}}/edit">
+                                        <span class="material-icons-outlined">
+                                            edit
                                         </span>
                                     </a>
                                 </td>
@@ -49,6 +46,30 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+<!-- Modal -->
+<div class="modal fade text-dark" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Eliminar receta?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deleteForm" data-bs-action="/ingredients/" action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type = "submit">
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

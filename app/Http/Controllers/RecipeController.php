@@ -25,7 +25,7 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        //
+        return view ('recipes.create');
     }
 
     /**
@@ -59,7 +59,8 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = Recipe::find($id);
+        return view ('recipes.edit')->with('recipe',$recipe);
     }
 
     /**
@@ -71,7 +72,13 @@ class RecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $recipe-> name = $request-> get('name');
+        $recipe-> description = $request-> get('description');
+
+        $recipe->save();
+
+        return redirect('/recipes');
     }
 
     /**

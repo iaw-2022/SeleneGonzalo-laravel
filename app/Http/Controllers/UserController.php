@@ -40,6 +40,9 @@ class UserController extends Controller
         $users-> name = $request-> get('name');
         $users-> email = $request-> get('email');
         $users-> password = $request-> get('pass');
+        $request -> validate(['name' => 'required|max:255']);
+        $request -> validate(['email' => 'required|max:500']);
+        $request -> validate(['pass' => 'required|max:500']);
 
         $users->save();
 
@@ -80,12 +83,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $request -> validate(['name' => 'required|max:255']);
+        $request -> validate(['email' => 'required|max:500']);
 
-        $users-> name = $request-> get('name');
-        $users-> email = $request-> get('email');
-        $users-> password = $request-> get('pass');
+        $user-> name = $request-> get('name');
+        $user-> email = $request-> get('email');
 
-        $users->save();
+        $user->save();
 
         return redirect('/users');
     }

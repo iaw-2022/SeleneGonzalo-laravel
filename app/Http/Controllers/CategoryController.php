@@ -38,7 +38,8 @@ class CategoryController extends Controller
     {
         $categories = new Category();
         $categories-> name = $request-> get('name');
-
+        $request -> validate(['name' => 'required|max:255']);
+        
         $categories->save();
 
         return redirect('/categories');
@@ -78,6 +79,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::find($id);
+        $request -> validate(['name' => 'required|max:255']);
         $category-> name = $request-> get('name');
 
         $category->save();

@@ -78,6 +78,7 @@ class IngredientController extends Controller
     public function update(Request $request, $id)
     {
         $ingredient = Ingredient::find($id);
+        $request -> validate(['name' => 'required|max:255']);
         $ingredient-> name = $request-> get('name');
 
         $ingredient->save();
