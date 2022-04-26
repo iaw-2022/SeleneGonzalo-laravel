@@ -50,7 +50,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form id="deleteForm" data-bs-action="/categories/" action="" method="POST">
+                    <form id="deleteForm" data-bs-action="/users/" action="" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type = "submit">
@@ -78,6 +78,18 @@
             $('#users-table').DataTable();
                 responsive :true;
         } );
+        </script>
+
+        <!-- Alerta de confirmacion de eliminacion-->
+        <script>
+            var deleteModal = document.getElementById('delete-modal')
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget
+                var id = button.getAttribute('data-bs-id')     
+                var deleteForm = deleteModal.querySelector('#deleteForm')
+                var action = deleteForm.getAttribute("data-bs-action")
+                deleteForm.setAttribute("action",action+id)
+            })
         </script>
     @endsection
 @endsection
