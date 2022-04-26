@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('container')
-<a class = "mb-3 btn btn-success" href="">
+<a class = "mb-3 btn btn-success" href="recipes/create">
     Agregar receta
 </a>
 <div class="container">

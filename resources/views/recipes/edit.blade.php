@@ -10,38 +10,46 @@
     <input id="name" name="name" type="text" class="form-control" value="{{$recipe->name}}">
   </div>
   <div class="mb-3">
-    <label for="" class="form-label">Descripción</label>
-    <input id="description" name="description" type="text" class="form-control" value="{{$recipe->description}}">
+    <label for="" class="form-label">Imagen</label>
+    <input id="image" name="image" type="text" class="form-control" value="{{$recipe->image}}">
   </div>
-  <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                  <table class= "table table-striped display nowrap" cellspacing="0" id="recipe-table" width="100%">
-                      <thead class = "text-center">
-                          <th style = "font-family:verdana;">Ingrediente</th>
-                      </thead>
-                      <tbody class = "text-center">
-                        <tr>
-                        @foreach ($recipe -> ingredients as $ingredient)
-                            <td style="text-align:left; font-family:verdana;">
-                                {{$ingredient -> name}} <br>
-                            </td>
-                            <td>
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                              </div>
-                            </td>
-                        @endforeach
-                        </tr>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Descripción</label>
+    <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px">{{$recipe->description}}</textarea>
+  </div>
+  <div class = "container">
+    <thead>
+        <th style = "font-family:verdana;">Ingredientes de la receta</th>
+        <a class = "mx-3" href="">
+            <span class="material-icons-outlined">
+                add_circle
+            </span>
+        </a>
+      </thead>
+  </div>
+  <table class= "table table-striped">
+      <tbody>
+        @foreach ($recipe -> ingredients as $ingredient)
+            <tr style="text-align:left">
+                <td>
+                    {{$ingredient -> name}}
+                </td>
+            </tr>
+        @endforeach
+      </tbody>
+  </table>
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </form>
-
     @section('js')
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

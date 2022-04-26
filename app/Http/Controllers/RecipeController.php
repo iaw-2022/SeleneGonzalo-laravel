@@ -36,7 +36,19 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $recipes = new Recipe();
+
+        $request -> validate(['name' => 'required|max:255']);
+        $request -> validate(['image' => 'required|max:2048']);
+        $request -> validate(['description' => 'required|max:700']);
+
+        $recipes-> name = $request-> get('name');
+        $recipes-> image = $request-> get('image');
+        $recipes-> description = $request-> get('description');
+
+        $recipes->save();
+
+        return redirect('/recipes');
     }
 
     /**
@@ -74,6 +86,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
         $recipe-> name = $request-> get('name');
+        $recipe-> image = $request-> get('image');
         $recipe-> description = $request-> get('description');
 
         $recipe->save();

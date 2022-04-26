@@ -37,6 +37,7 @@ class IngredientController extends Controller
     public function store(Request $request)
     {
         $ingredients = new Ingredient();
+        $request -> validate (['name' => 'required|max:255']);
         $ingredients-> name = $request-> get('name');
 
         $ingredients->save();
