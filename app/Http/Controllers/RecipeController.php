@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Ingredient;
+use App\Models\Has;
+use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -25,7 +28,9 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        return view ('recipes.create');
+        $recipe = Recipe::all();
+        $ingredients = Ingredient::all();
+        return view ('recipes.create')->with('recipe',$recipe)->with('ingredients',$ingredients);
     }
 
     /**
@@ -46,6 +51,14 @@ class RecipeController extends Controller
         $recipes-> image = $request-> get('image');
         $recipes-> description = $request-> get('description');
 
+        $ingredients = $request -> input ('check_ingredients');
+        foreach ((array) $ingredients as $ingredient){
+            $has = new Has();
+            $has -> lot = $request -> get('lot');
+            $has -> id_ingredient = $ingredient;
+            $has -> id_recipe = $recipes->id;
+            $has -> save();
+        }
         $recipes->save();
 
         return redirect('/recipes');
@@ -72,7 +85,8 @@ class RecipeController extends Controller
     public function edit($id)
     {
         $recipe = Recipe::find($id);
-        return view ('recipes.edit')->with('recipe',$recipe);
+        $ingredients = Ingredient::all();
+        return view ('recipes.edit')->with('recipe',$recipe)->with('ingredients',$ingredients);
     }
 
     /**
@@ -88,9 +102,26 @@ class RecipeController extends Controller
         $recipe-> name = $request-> get('name');
         $recipe-> image = $request-> get('image');
         $recipe-> description = $request-> get('description');
+        $ingredients = $request -> input ('check_ingredients');
 
-        $recipe->save();
+        try{
+            DB::beginTransaction();
+            $recipe -> ingredients()->detach();
 
+            foreach ((array) $ingredients as $ingredient){
+                $has = new Has();
+                $has -> lot = $request -> get('lot');
+                $has -> id_ingredient = $ingredient;
+                $has -> id_recipe = $id;
+                $has -> save();
+            }
+            DB::commit();
+            $recipe->save();
+
+        }catch(\Exception $e){
+            DB::rollback();
+            throw $e;
+        }
         return redirect('/recipes');
     }
 
