@@ -18,8 +18,8 @@ return new class extends Migration
             $table->bigInteger('id_recipe');
             $table->string('commentary');
             $table->string('qualification');
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_recipe')->references('id')->on('recipes');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_recipe')->references('id')->on('recipes')->onDelete('cascade');
             $table->timestamps();
         });
     }

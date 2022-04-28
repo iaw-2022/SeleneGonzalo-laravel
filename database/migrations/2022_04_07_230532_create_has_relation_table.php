@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('lot');
             $table->bigInteger('id_ingredient');
             $table->bigInteger('id_recipe');
-            $table->foreign('id_ingredient')->references('id')->on('ingredients');
-            $table->foreign('id_recipe')->references('id')->on('recipes');
+            $table->foreign('id_ingredient')->references('id')->on('ingredients')->onDelete('cascade');
+            $table->foreign('id_recipe')->references('id')->on('recipes')->onDelete('cascade');
             $table->timestamps();
         });
     }

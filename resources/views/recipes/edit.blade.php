@@ -20,7 +20,7 @@
   <div class = "container">
     <thead>
         <th style = "font-family:verdana;">Ingredientes</th>
-      </thead>
+    </thead>
   </div>
 
   <div class="container" style="height: 250px">
@@ -44,7 +44,9 @@
                                 </td>
                             @else
                                 <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="flexCheckDefault">
-                                <td></td>
+                                <td>
+                                    <input type="text" class="form-control" name="lot" value="">
+                                </td>
                             @endif
                         </div>
                     </td>

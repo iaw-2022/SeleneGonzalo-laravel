@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('belongs', function (Blueprint $table) {
             $table->bigInteger('id_category');
             $table->bigInteger('id_recipe');
-            $table->foreign('id_category')->references('id')->on('categories');
-            $table->foreign('id_recipe')->references('id')->on('recipes');
+            $table->foreign('id_category')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('id_recipe')->references('id')->on('recipes')->onDelete('cascade');
             $table->timestamps();
         });
     }
