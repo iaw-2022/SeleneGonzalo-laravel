@@ -24,7 +24,7 @@
   </div>
 
   <div class="container" style="height: 250px">
-    <table class= "table table-striped">
+    <table class= "table table-responsive">
         <tbody>
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
@@ -33,20 +33,14 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            @if ($recipe->ingredients->has($ingredient->id))
-                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="flexCheckChecked" checked>
-                                <td>
-                                    @foreach ($recipe -> ingredients as $ingredient_recipe)
-                                        @if ($ingredient->id == $ingredient_recipe->id)
-                                            <input type="text" class="form-control" name="lot" value="{{$ingredient_recipe -> pivot -> lot}}" required>
-                                        @endif
-                                    @endforeach
-                                </td>
+                            @php $ingredient_result = $recipe->hasIngredient($ingredient->id) @endphp
+                            @if ($ingredient_result->exists())
+                                @php $ingredient_id = $ingredient_result->first()->id_ingredient @endphp
+                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient_id}}" id="checkbox{{$ingredient_id}}" onchange="changeStatusButton('{{$ingredient_id}}')" checked>
+                                <input type="text" class="form-control" name="lot[]" value="{{$ingredient_result -> first() -> lot}}" id="text{{$ingredient_id}}" required>
                             @else
-                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="flexCheckDefault">
-                                <td>
-                                    <input type="text" class="form-control" name="lot" value="">
-                                </td>
+                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}')">
+                                <input type="text" class="form-control" name="lot[]" value="" id="text{{$ingredient->id}}" disabled required>
                             @endif
                         </div>
                     </td>
@@ -67,6 +61,8 @@
         </div>
     @endif
   </div>
+
+
 </div>
 
 </form>
@@ -87,6 +83,21 @@
             })
         });
         </script>
+
+    <script>
+        function changeStatusButton($id){
+          $text = document.getElementById("text"+$id);
+          $checkbox = document.getElementById("checkbox"+$id);
+          console.log($text);
+          console.log($checkbox.checked);
+          if($checkbox.checked)
+            $text.disabled = false;
+          else{
+            $text.disabled = true;
+            $text.value = '';
+          }
+        }
+    </script>
     @endsection
 @endsection
 

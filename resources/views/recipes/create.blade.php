@@ -32,11 +32,11 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="flexCheckDefault">
+                            <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}')">
                         </div>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="lot" value="">
+                        <input type="text" class="form-control" name="lot[]" value="" id="text{{$ingredient->id}}" disabled required>
                     </td>
                 </tr>
             @endforeach
@@ -56,5 +56,20 @@
     @endif
   </div>
 </div>
+
+    @section('js')
+    <script>
+        function changeStatusButton($id){
+          $text = document.getElementById("text"+$id);
+          $checkbox = document.getElementById("checkbox"+$id);
+          console.log($text);
+          console.log($checkbox.checked);
+          if($checkbox.checked)
+            $text.disabled = false;
+          else
+            $text.disabled = true;
+        }
+    </script>
+    @endsection
 @endsection
 

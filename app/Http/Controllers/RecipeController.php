@@ -51,10 +51,12 @@ class RecipeController extends Controller
         $recipes-> image = $request-> get('image');
         $recipes-> description = $request-> get('description');
 
+        $lots = $request -> get('lot');
+        $count = 0;
         $ingredients = $request -> input ('check_ingredients');
         foreach ((array) $ingredients as $ingredient){
             $has = new Has();
-            $has -> lot = $request -> get('lot');
+            $has -> lot = $lots[$count++];
             $has -> id_ingredient = $ingredient;
             $has -> id_recipe = $recipes->id;
             $has -> save();
@@ -107,10 +109,11 @@ class RecipeController extends Controller
         try{
             DB::beginTransaction();
             $recipe -> ingredients()->detach();
-
+            $lots = $request -> get('lot');
+            $count = 0;
             foreach ((array) $ingredients as $ingredient){
                 $has = new Has();
-                $has -> lot = $request -> get('lot');
+                $has -> lot = $lots[$count++];
                 $has -> id_ingredient = $ingredient;
                 $has -> id_recipe = $id;
                 $has -> save();

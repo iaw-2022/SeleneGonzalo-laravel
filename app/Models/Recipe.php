@@ -29,4 +29,14 @@ class Recipe extends Model
     public function qualifications (){
         return $this -> belongsToMany (User::class, 'qualifies', 'id_recipe','id_user') -> withPivot('commentary','qualification');
     }
+
+    public function hasIngredient($id){
+        return Has::where('id_recipe', $this->id)->where('id_ingredient',$id);
+        // if ($ingredient_result->exists()){
+        //     return true;
+        // }
+        // else{
+        //     return false;
+        // }
+    }
 }
