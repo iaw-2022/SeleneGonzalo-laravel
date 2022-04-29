@@ -9,7 +9,6 @@ class Recipe extends Model
 {
     use HasFactory;
     protected $table = 'recipes';
-    #protected $primaryKey = 'email';
 
     /**
      * The attributes that are mass assignable.
@@ -32,11 +31,5 @@ class Recipe extends Model
 
     public function hasIngredient($id){
         return Has::where('id_recipe', $this->id)->where('id_ingredient',$id);
-        // if ($ingredient_result->exists()){
-        //     return true;
-        // }
-        // else{
-        //     return false;
-        // }
     }
 }

@@ -66,8 +66,10 @@
           console.log($checkbox.checked);
           if($checkbox.checked)
             $text.disabled = false;
-          else
+          else{
             $text.disabled = true;
+            $text.value = '';
+          }
         }
     </script>
     @endsection

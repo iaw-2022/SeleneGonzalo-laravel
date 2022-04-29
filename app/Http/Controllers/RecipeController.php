@@ -42,7 +42,7 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $recipes = new Recipe();
-
+        
         $request -> validate(['name' => 'required|max:255']);
         $request -> validate(['image' => 'required|max:2048']);
         $request -> validate(['description' => 'required|max:700']);
@@ -50,6 +50,7 @@ class RecipeController extends Controller
         $recipes-> name = $request-> get('name');
         $recipes-> image = $request-> get('image');
         $recipes-> description = $request-> get('description');
+        $recipes->save();
 
         $lots = $request -> get('lot');
         $count = 0;
@@ -61,8 +62,6 @@ class RecipeController extends Controller
             $has -> id_recipe = $recipes->id;
             $has -> save();
         }
-        $recipes->save();
-
         return redirect('/recipes');
     }
 
