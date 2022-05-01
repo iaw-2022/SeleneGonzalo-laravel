@@ -35,4 +35,6 @@ Route::get('/ingredient/{id}',[App\Http\Controllers\IngredientController::class,
 
 Route::get('/user/{id}',[App\Http\Controllers\UserController::class,'show'])-> middleware(['auth']);
 
+Route::get('/recipe/{id}',[App\Http\Controllers\RecipeController::class,'show'])-> middleware(['auth']);
+
 require __DIR__.'/auth.php';
