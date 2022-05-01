@@ -26,7 +26,7 @@ class Recipe extends Model
     }
 
     public function qualifications (){
-        return $this -> belongsToMany (User::class, 'qualifies', 'id_recipe','id_user') -> withPivot('commentary','qualification');
+        return $this -> belongsToMany (User::class, 'qualifies', 'id_recipe','id_user') -> withPivot('id','commentary','qualification');
     }
 
     public function hasIngredient($id){

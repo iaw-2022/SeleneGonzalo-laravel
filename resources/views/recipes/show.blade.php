@@ -40,7 +40,7 @@
         <li class="list-group-item">
           Comentario: {{$q -> pivot -> commentary}}
         </li>
-        <button class="btn btn-danger" style="max-width: 50px;" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$q->id}}">
+        <button class="btn btn-danger" style="max-width: 50px;" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$q->pivot->id}}">
             <span class="material-icons-outlined">
                 delete
             </span>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form id="deleteForm" data-bs-action="/recipes/show" action="" method="POST">
+                    <form id="deleteForm" data-bs-action="/qualifies/" action="" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type = "submit">
@@ -84,6 +84,7 @@
                 var action = deleteForm.getAttribute("data-bs-action")
                 deleteForm.setAttribute("action",action+id)
             })
-        </script>
+      </script>
+
     @endsection
 @endsection

@@ -37,4 +37,6 @@ Route::get('/user/{id}',[App\Http\Controllers\UserController::class,'show'])-> m
 
 Route::get('/recipe/{id}',[App\Http\Controllers\RecipeController::class,'show'])-> middleware(['auth']);
 
+Route::delete('/qualifies/{id}',[App\Http\Controllers\QualifiesController::class,'destroy'])-> middleware(['auth']);
+
 require __DIR__.'/auth.php';

@@ -17,7 +17,7 @@ class Qualifies extends Model
     protected $fillable = [
         'commentary',
         'qualification',
-        'user_email',
+        'id_user',
         'id_recipe'
     ];
 }

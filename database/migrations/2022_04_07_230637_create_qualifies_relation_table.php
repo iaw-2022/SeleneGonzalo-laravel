@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('qualifies', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('id_user');
             $table->bigInteger('id_recipe');
             $table->string('commentary');
