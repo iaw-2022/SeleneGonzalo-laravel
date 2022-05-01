@@ -22,6 +22,7 @@ class RecipeSeeder extends Seeder
             [
                 'name' => 'Buñuelos',
                 'image' => 'https://www.pequerecetas.com/wp-content/uploads/2021/02/bunuelos-de-cuaresma-receta-660x879.jpg',
+                'image_path' => '',
                 'description' => 'Buñuelos aptos para celíacos, ¡ideales para una tarde lluviosa!
                 1 Agregar en un bowl los huevos, el azúcar, la escencia de vainilla, el polvo para hornear y el aceite. 
                 2 Revolver. 
@@ -38,6 +39,7 @@ class RecipeSeeder extends Seeder
             [
                 'name' => 'Pan',
                 'image' => 'https://t1.uc.ltmcdn.com/es/posts/1/8/0/como_hacer_pan_sin_gluten_23081_600.jpg',
+                'image_path' => '',
                 'description' => 'Pan sin gluten, ideal para acompañar con el mate, hacer hamburguesas, panchos, choripanes, ¡lo que quieras!'
             ]
         ];

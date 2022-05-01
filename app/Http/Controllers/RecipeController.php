@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use App\Models\Ingredient;
 use App\Models\Has;
 use Illuminate\Support\Facades\DB;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class RecipeController extends Controller
 {
@@ -48,7 +49,13 @@ class RecipeController extends Controller
         $request -> validate(['description' => 'required|max:700']);
 
         $recipes-> name = $request-> get('name');
-        $recipes-> image = $request-> get('image');
+
+        $file = $request-> get('image');
+        $image = $file->storeOnCloudinary('/recipes');
+
+        $recipes->image = $image->getPath();
+        $recipes->image_path = $image->getPublicId();
+
         $recipes-> description = $request-> get('description');
         $recipes->save();
 
@@ -101,8 +108,10 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
         $recipe-> name = $request-> get('name');
+        $recipe-> image = $request-> get('image')->get;
         $recipe-> image = $request-> get('image');
         $recipe-> description = $request-> get('description');
+
         $ingredients = $request -> input ('check_ingredients');
 
         try{

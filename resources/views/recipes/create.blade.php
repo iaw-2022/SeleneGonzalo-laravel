@@ -2,7 +2,7 @@
 
 @section('container')
 
-<form action="/recipes" method="POST">
+<form action="/recipes" enctype="multipart/form-data" method="POST">
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
@@ -10,7 +10,8 @@
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Imagen</label>
-    <input id="image" name="image" type="text" class="form-control">
+    <input id="image" name="image" type="file" class="form-control" accept = "image/*" onchange="loadImage(event)">
+    <img class = "mt-3" style = "width: 150px" id="selected"/>
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Descripción</label>
@@ -71,6 +72,17 @@
             $text.value = '';
           }
         }
+    </script>
+
+    <!-- vista previa de la imagen -->
+    <script>
+        var loadImage = function(event) {
+            var selected = document.getElementById('selected');
+            selected.src = URL.createObjectURL(event.target.files[0]);
+            selected.onload = function() {
+                URL.revokeObjectURL(selected.src)
+            }
+        };
     </script>
     @endsection
 @endsection
