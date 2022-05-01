@@ -50,8 +50,9 @@ class RecipeController extends Controller
 
         $recipes-> name = $request-> get('name');
 
-        $file = $request-> get('image');
+        $file = $request-> file('image');
         $image = $file->storeOnCloudinary('/recipes');
+        
 
         $recipes->image = $image->getPath();
         $recipes->image_path = $image->getPublicId();
@@ -108,8 +109,15 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
         $recipe-> name = $request-> get('name');
-        $recipe-> image = $request-> get('image')->get;
-        $recipe-> image = $request-> get('image');
+
+        $file = $request-> file('image');
+        $image = $file->storeOnCloudinary('/recipes');
+        
+        if ($file != null){
+            $recipes->image = $image->getPath();
+            $recipes->image_path = $image->getPublicId();
+        }
+        
         $recipe-> description = $request-> get('description');
 
         $ingredients = $request -> input ('check_ingredients');
