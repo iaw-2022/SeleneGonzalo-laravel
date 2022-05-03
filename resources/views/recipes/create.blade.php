@@ -17,14 +17,14 @@
     <label for="" class="form-label">Descripción</label>
     <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px"></textarea>
   </div>
-  <div class = "container">
-    <thead>
-        <th style = "font-family:verdana;">Ingredientes</th>
-      </thead>
-  </div>
 
   <div class="container" style="height: 250px">
     <table class= "table table-striped">
+      <thead>
+        <th style = "font-family:verdana;">Ingrediente</th>
+        <th style = "font-family:verdana;">Agregar</th>
+        <th style = "font-family:verdana;">Cantidad</th>
+      </thead>
         <tbody>
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">

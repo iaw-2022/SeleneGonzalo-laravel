@@ -12,39 +12,44 @@
   <div class="mb-3">
     <label for="" class="form-label">Imagen</label>
     <input id="image" name="image" type="file" class="form-control" accept = "image/*" onchange="loadImage(event)">
-    <img class = "mt-3" style = "width: 150px" id="selected"/>
+    <img class = "mt-3" style = "width: 150px" src = "{{$recipe->image}}" id="selected"/>
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Descripción</label>
     <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px">{{$recipe->description}}</textarea>
   </div>
-  <div class = "container">
-    <thead>
-        <th style = "font-family:verdana;">Ingredientes</th>
-    </thead>
-  </div>
-
   <div class="container" style="height: 250px">
     <table class= "table table-responsive">
+        <thead>
+            <th style = "font-family:verdana;">Ingrediente</th>
+            <th style = "font-family:verdana;">Agregar</th>
+            <th style = "font-family:verdana;">Cantidad</th>
+        </thead>
         <tbody>
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
                     <td>
                         {{$ingredient -> name}}
                     </td>
-                    <td>
-                        <div class="form-check">
-                            @php $ingredient_result = $recipe->hasIngredient($ingredient->id) @endphp
-                            @if ($ingredient_result->exists())
-                                @php $ingredient_id = $ingredient_result->first()->id_ingredient @endphp
+                    <div class="form-check">
+                        @php $ingredient_result = $recipe->hasIngredient($ingredient->id) @endphp
+                        @if ($ingredient_result->exists())
+                            @php $ingredient_id = $ingredient_result->first()->id_ingredient @endphp
+                            <td>
                                 <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient_id}}" id="checkbox{{$ingredient_id}}" onchange="changeStatusButton('{{$ingredient_id}}')" checked>
+                            </td>
+                            <td>
                                 <input type="text" class="form-control" name="lot[]" value="{{$ingredient_result -> first() -> lot}}" id="text{{$ingredient_id}}" required>
-                            @else
+                            </td>
+                        @else
+                            <td>
                                 <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}')">
+                            </td>
+                            <td>
                                 <input type="text" class="form-control" name="lot[]" value="" id="text{{$ingredient->id}}" disabled required>
-                            @endif
-                        </div>
-                    </td>
+                            </td>
+                        @endif
+                    </div>
                 </tr>
             @endforeach
         </tbody>

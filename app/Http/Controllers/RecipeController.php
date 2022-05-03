@@ -111,13 +111,19 @@ class RecipeController extends Controller
         $recipe-> name = $request-> get('name');
 
         $file = $request-> file('image');
-        $image = $file->storeOnCloudinary('/recipes');
         
         if ($file != null){
-            $recipes->image = $image->getPath();
-            $recipes->image_path = $image->getPublicId();
+            try{
+                Cloudinary::destroy($recipe->image_path);
+                $image = $file->storeOnCloudinary('/recipes');
+            }catch(Exception $exc){
+                return redirect ('/recipes/$id/edit')->withError("No se pudo cargar la imagen");
+            }
         }
-        
+
+        $recipe->image = $image->getPath();
+        $recipe->image_path = $image->getPublicId();
+
         $recipe-> description = $request-> get('description');
 
         $ingredients = $request -> input ('check_ingredients');
@@ -153,6 +159,14 @@ class RecipeController extends Controller
     public function destroy($id)
     {
         $recipe = Recipe::find($id);
+        if ($recipe == null){
+            abort(404, "No se encontró la receta para eliminar");
+        }
+
+        if ($recipe != null){
+            Cloudinary::destroy($recipe->image_path);
+        }
+
         $recipe->delete();
 
         return redirect('/recipes');
