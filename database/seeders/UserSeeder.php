@@ -17,12 +17,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $password = $hashed = Hash::make('Selene278827');
+        $password_selene = Hash::make('Selene278827');
+        $password_fausto = Hash::make('Fausto121112');
 
         $data = [
-            'name' => 'Selene',
-            'email' => 'iawselenegonzalo@gmail.com',
-            'password' => $password
+            [
+                'name' => 'Selene',
+                'email' => 'iawselenegonzalo@gmail.com',
+                'password' => $password_selene
+            ],
+            [
+                'name' => 'Fausto',
+                'email' => 'faustojgonzalo@gmail.com',
+                'password' => $password_fausto
+            ]
         ];
         DB :: table ('users') -> insert ($data);
     }
