@@ -72,8 +72,26 @@
         </tbody>
     </table>
 
+    <!-- Modal para alerta de checkboxes -->
+    <div class="modal" tabindex="-1" id="alert-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alerta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Debe seleccionar al menos una categoría y un ingrediente</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alert-modal" tabindex="4">Guardar</button>
 </form>
 @section('js')
     <script>
@@ -106,7 +124,6 @@
                 }
             }
             if(!okay){
-                alert("Debe seleccionar al menos una categoría y al menos un ingrediente");
                 return false;
             }else
                 return true;

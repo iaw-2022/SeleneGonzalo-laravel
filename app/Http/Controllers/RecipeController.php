@@ -127,6 +127,10 @@ class RecipeController extends Controller
         $ingredients = $request -> input ('check_ingredients');
         $categories = $request -> input('check_categories');
 
+        if($categories == null)
+            return redirect('/recipes/create')->withErrors("Debe seleccionar al menos una categoría");
+        if($ingredients == null)
+            return redirect('/recipes/create')->withErrors("Debe seleccionar al menos un ingrediente");
         try{
             DB::beginTransaction();
             $recipe -> ingredients()->detach();

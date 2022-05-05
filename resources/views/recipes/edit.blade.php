@@ -82,62 +82,78 @@
             @endforeach
         </tbody>
     </table>
+
+    <!-- Modal para alerta de checkboxes -->
+    <div class="modal" tabindex="-1" id="alert-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alerta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Debe seleccionar al menos una categoría y un ingrediente</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
-    <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
-  </div>
-</div>
+    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alert-modal" tabindex="4">Guardar</button>
 </form>
-    @section('js')
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-        <!--   Datatables-->
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <!--   Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
 
-        <!-- extension responsive -->
-        <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <!-- extension responsive -->
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
-        <script>
-        $(document).ready(function() {
-            $('#recipe-table').DataTable({
-                responsive:true
-            })
-        });
+    <script>
+    $(document).ready(function() {
+        $('#recipe-table').DataTable({
+            responsive:true
+        })
+    });
 
-        function changeStatusButton($id){
-          $text = document.getElementById("text"+$id);
-          $checkbox = document.getElementById("checkbox"+$id);
-          if($checkbox.checked)
-            $text.disabled = false;
-          else{
-            $text.disabled = true;
-            $text.value = '';
-          }
+    function changeStatusButton($id){
+        $text = document.getElementById("text"+$id);
+        $checkbox = document.getElementById("checkbox"+$id);
+        if($checkbox.checked)
+        $text.disabled = false;
+        else{
+        $text.disabled = true;
+        $text.value = '';
         }
+    }
 
-        function changeStatusButtonCategory($id){
-          $text = document.getElementById("text"+$id);
-          $checkbox = document.getElementById("checkbox"+$id);
-        }
+    function changeStatusButtonCategory($id){
+        $text = document.getElementById("text"+$id);
+        $checkbox = document.getElementById("checkbox"+$id);
+    }
 
-        function checkBoxValidation(){
-            var form=document.getElementById("body-check");
-            var checkboxs=form.querySelectorAll("input[type='checkbox']");
-            var okay=false;
-            for(var i=0,l=checkboxs.length;i<l;i++)
+    function checkBoxValidation(){
+        var form=document.getElementById("body-check");
+        var checkboxs=form.querySelectorAll("input[type='checkbox']");
+        var okay=false;
+        for(var i=0,l=checkboxs.length;i<l;i++)
+        {
+            if(checkboxs[i].checked)
             {
-                if(checkboxs[i].checked)
-                {
-                    okay=true;
-                    break;
-                }
+                okay=true;
+                break;
             }
-            if(!okay){
-                alert("Debe seleccionar al menos una categoría y al menos un ingrediente");
-                return false;
-            }else
-                return true;
         }
+        if(!okay){
+            return false;
+        }else
+            return true;
+    }
     </script>
     @endsection
 @endsection
