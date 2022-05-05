@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Rol;
 
 class UserController extends Controller
 {
@@ -25,7 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view ('users.create');
+        $rol = Rol::all();
+        return view ('users.create') -> with ('rol', $rol);
     }
 
     /**

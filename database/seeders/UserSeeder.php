@@ -23,11 +23,13 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'name' => 'Selene',
+                'id_rol' => '1',
                 'email' => 'iawselenegonzalo@gmail.com',
                 'password' => $password_selene
             ],
             [
                 'name' => 'Fausto',
+                'id_rol' => '2',
                 'email' => 'faustojgonzalo@gmail.com',
                 'password' => $password_fausto
             ]
