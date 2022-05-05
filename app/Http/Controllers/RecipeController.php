@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Ingredient;
 use App\Models\Has;
+use App\Models\Belongs;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
@@ -30,7 +32,8 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::all();
         $ingredients = Ingredient::all();
-        return view ('recipes.create')->with('recipe',$recipe)->with('ingredients',$ingredients);
+        $categories = Category::all();
+        return view ('recipes.create')->with('recipe',$recipe)->with('ingredients',$ingredients)->with('categories',$categories);
     }
 
     /**
@@ -42,7 +45,7 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $recipes = new Recipe();
-        
+
         $request -> validate(['name' => 'required|max:255']);
         $request -> validate(['image' => 'required|max:2048']);
         $request -> validate(['description' => 'required|max:700']);
@@ -55,12 +58,24 @@ class RecipeController extends Controller
         $lots = $request -> get('lot');
         $count = 0;
         $ingredients = $request -> input ('check_ingredients');
+        $categories = $request -> input ('check_categories');
+        if($categories == null)
+            return redirect('/recipes/create')->withErrors("Debe seleccionar al menos una categoría");
+        if($ingredients == null)
+            return redirect('/recipes/create')->withErrors("Debe seleccionar al menos un ingrediente");
+
         foreach ((array) $ingredients as $ingredient){
             $has = new Has();
             $has -> lot = $lots[$count++];
             $has -> id_ingredient = $ingredient;
             $has -> id_recipe = $recipes->id;
             $has -> save();
+        }
+        foreach((array) $categories as $category){
+            $belongs = new Belongs();
+            $belongs -> id_category = $category;
+            $belongs -> id_recipe = $recipes->id;
+            $belongs -> save();
         }
         return redirect('/recipes');
     }
@@ -87,7 +102,8 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
         $ingredients = Ingredient::all();
-        return view ('recipes.edit')->with('recipe',$recipe)->with('ingredients',$ingredients);
+        $categories = Category::all();
+        return view ('recipes.edit')->with('recipe',$recipe)->with('ingredients',$ingredients)->with('categories',$categories);
     }
 
     /**
@@ -100,14 +116,21 @@ class RecipeController extends Controller
     public function update(Request $request, $id)
     {
         $recipe = Recipe::find($id);
+
+        $request -> validate(['name' => 'required|max:255']);
+        $request -> validate(['image' => 'required|max:2048']);
+        $request -> validate(['description' => 'required|max:700']);
+
         $recipe-> name = $request-> get('name');
         $recipe-> image = $request-> get('image');
         $recipe-> description = $request-> get('description');
         $ingredients = $request -> input ('check_ingredients');
+        $categories = $request -> input('check_categories');
 
         try{
             DB::beginTransaction();
             $recipe -> ingredients()->detach();
+            $recipe -> categories()->detach();
             $lots = $request -> get('lot');
             $count = 0;
             foreach ((array) $ingredients as $ingredient){
@@ -116,6 +139,12 @@ class RecipeController extends Controller
                 $has -> id_ingredient = $ingredient;
                 $has -> id_recipe = $id;
                 $has -> save();
+            }
+            foreach((array) $categories as $category){
+                $belongs = new Belongs();
+                $belongs -> id_category = $category;
+                $belongs -> id_recipe = $id;
+                $belongs -> save();
             }
             DB::commit();
             $recipe->save();

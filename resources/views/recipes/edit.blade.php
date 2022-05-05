@@ -1,8 +1,16 @@
 @extends('template')
 
 @section('container')
-
-<form action="/recipes/{{$recipe->id}}" method="POST">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<form action="/recipes/{{$recipe->id}}" method="POST" onsubmit=" return checkBoxValidation()">
   @csrf
   @method('PUT')
   <div class="mb-3">
@@ -17,14 +25,14 @@
     <label for="" class="form-label">Descripción</label>
     <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px">{{$recipe->description}}</textarea>
   </div>
-  <div class = "container">
-    <thead>
-        <th style = "font-family:verdana;">Ingredientes</th>
-    </thead>
-  </div>
 
   <div class="container" style="height: 250px">
     <table class= "table table-responsive">
+        <thead>
+            <th style = "font-family:verdana;">Ingrediente</th>
+            <th style = "font-family:verdana;">Agregar</th>
+            <th style = "font-family:verdana;">Cantidad</th>
+        </thead>
         <tbody>
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
@@ -48,23 +56,36 @@
             @endforeach
         </tbody>
     </table>
-
+    <table class= "table table-responsive">
+        <thead>
+            <th style = "font-family:verdana;">Categoría</th>
+            <th style = "font-family:verdana;">Agregar</th>
+        </thead>
+        <tbody>
+            @foreach ($categories as $category)
+                <tr style="text-align:left">
+                    <td>
+                        {{$category -> name}}
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            @php $category_result = $recipe->hasCategory($category->id) @endphp
+                            @if ($category_result->exists())
+                                @php $category_id = $category_result->first()->id_category @endphp
+                                <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category_id}}" id="checkbox{{$category_id}}" onchange="changeStatusButtonCategory('{{$category_id}}')" checked>
+                            @else
+                                <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category->id}}" id="checkbox{{$category->id}}" onchange="changeStatusButtonCategory('{{$category->id}}')">
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
   </div>
-
-
 </div>
-
 </form>
     @section('js')
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -82,20 +103,40 @@
                 responsive:true
             })
         });
-        </script>
 
-    <script>
         function changeStatusButton($id){
           $text = document.getElementById("text"+$id);
           $checkbox = document.getElementById("checkbox"+$id);
-          console.log($text);
-          console.log($checkbox.checked);
           if($checkbox.checked)
             $text.disabled = false;
           else{
             $text.disabled = true;
             $text.value = '';
           }
+        }
+
+        function changeStatusButtonCategory($id){
+          $text = document.getElementById("text"+$id);
+          $checkbox = document.getElementById("checkbox"+$id);
+        }
+
+        function checkBoxValidation(){
+            var form=document.getElementById("body-check");
+            var checkboxs=form.querySelectorAll("input[type='checkbox']");
+            var okay=false;
+            for(var i=0,l=checkboxs.length;i<l;i++)
+            {
+                if(checkboxs[i].checked)
+                {
+                    okay=true;
+                    break;
+                }
+            }
+            if(!okay){
+                alert("Debe seleccionar al menos una categoría y al menos un ingrediente");
+                return false;
+            }else
+                return true;
         }
     </script>
     @endsection
