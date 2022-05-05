@@ -14,15 +14,15 @@
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
-    <input id="name" name="name" type="text" class="form-control" required>
+    <input id="name" name="name" type="text" class="form-control" required value = "{{old('name')}}">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Imagen</label>
-    <input id="image" name="image" type="text" class="form-control" required>
+    <input id="image" name="image" type="text" class="form-control" required value = "{{old('image')}}">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Descripción</label>
-    <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px" required></textarea>
+    <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px" required>{{old('description')}}</textarea>
   </div>
 
   <div class="container" style="height: 250px">
