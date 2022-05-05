@@ -1,31 +1,38 @@
 @extends('template')
 
 @section('container')
-
-<form action="/recipes" enctype="multipart/form-data" method="POST">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<form action="/recipes" method="POST" onsubmit="return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
-    <input id="name" name="name" type="text" class="form-control">
+    <input id="name" name="name" type="text" class="form-control" required value = "{{old('name')}}">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Imagen</label>
-    <input id="image" name="image" type="file" class="form-control" accept = "image/*" onchange="loadImage(event)">
-    <img class = "mt-3" style = "width: 150px" id="selected"/>
+    <input id="image" name="image" type="text" class="form-control" required value = "{{old('image')}}">
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Descripción</label>
-    <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px"></textarea>
+    <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px" required>{{old('description')}}</textarea>
   </div>
 
   <div class="container" style="height: 250px">
     <table class= "table table-striped">
-      <thead>
-        <th style = "font-family:verdana;">Ingrediente</th>
-        <th style = "font-family:verdana;">Agregar</th>
-        <th style = "font-family:verdana;">Cantidad</th>
-      </thead>
-        <tbody>
+        <thead>
+            <th style = "font-family:verdana;">Ingrediente</th>
+            <th style = "font-family:verdana;">Agregar</th>
+            <th style = "font-family:verdana;">Cantidad</th>
+        </thead>
+        <tbody id= "body-check-ingredient">
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
                     <td>
@@ -44,27 +51,56 @@
         </tbody>
     </table>
 
+    <table class= "table table-striped">
+        <thead>
+            <th style = "font-family:verdana;">Categoría</th>
+            <th style = "font-family:verdana;">Agregar</th>
+        </thead>
+        <tbody id="body-check-category">
+            @foreach ($categories as $category)
+                <tr style="text-align:left">
+                    <td>
+                        {{$category -> name}}
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category->id}}" id="checkbox{{$category->id}}" onchange="changeStatusButtonCategory('{{$category->id}}')">
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+     <!-- Modal para alerta de checkboxes -->
+    <div class="modal" tabindex="-1" id="alert-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alerta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Debe seleccionar al menos una categoría y un ingrediente</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
     <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-  </div>
-</div>
+</form>
 
-    @section('js')
+@section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
     <script>
         function changeStatusButton($id){
           $text = document.getElementById("text"+$id);
           $checkbox = document.getElementById("checkbox"+$id);
-          console.log($text);
-          console.log($checkbox.checked);
           if($checkbox.checked)
             $text.disabled = false;
           else{
@@ -72,17 +108,33 @@
             $text.value = '';
           }
         }
-    </script>
 
-    <!-- vista previa de la imagen -->
-    <script>
-        var loadImage = function(event) {
-            var selected = document.getElementById('selected');
-            selected.src = URL.createObjectURL(event.target.files[0]);
-            selected.onload = function() {
-                URL.revokeObjectURL(selected.src)
+        function changeStatusButtonCategory($id){
+          $text = document.getElementById("text"+$id);
+          $checkbox = document.getElementById("checkbox"+$id);
+        }
+
+        function checkBoxValidation($id){
+        let form=document.getElementById($id);
+        let checkboxs=form.querySelectorAll("input[type='checkbox']");
+        let okay=false;
+        for(var i=0,l=checkboxs.length;i<l;i++)
+        {
+            if(checkboxs[i].checked)
+            {
+                okay=true;
+                break;
             }
-        };
+        }
+        if(!okay){
+            console.log("entra");
+            let modal = document.getElementById("alert-modal");
+            console.log(modal);
+            $(modal).modal('toggle');
+            return false;
+        }else
+            return true;
+    }
     </script>
     @endsection
 @endsection

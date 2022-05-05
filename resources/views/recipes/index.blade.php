@@ -12,6 +12,7 @@
                         <th style = "font-family:verdana;">Nombre receta</th>
                         <th style = "font-family:verdana;">Imagen ilustrativa</th>
                         <th style = "font-family:verdana;">Ingredientes</th>
+                        <th style = "font-family:verdana;">Categoría/s</th>
                         <th style = "font-family:verdana;">Acciones</th>
                     </thead>
                     <tbody class = "text-center">
@@ -26,6 +27,11 @@
                                 <td style="text-align:left; font-family:verdana;">
                                     @foreach ($recipe -> ingredients as $ingredient)
                                         {{$ingredient -> name}} <br>
+                                    @endforeach
+                                </td>
+                                <td style="text-align:left; font-family:verdana;">
+                                    @foreach ($recipe -> categories as $category)
+                                        {{$category -> name}} <br>
                                     @endforeach
                                 </td>
                                 <td>
@@ -97,7 +103,7 @@
             var deleteModal = document.getElementById('delete-modal')
             deleteModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget
-                var id = button.getAttribute('data-bs-id')     
+                var id = button.getAttribute('data-bs-id')
                 var deleteForm = deleteModal.querySelector('#deleteForm')
                 var action = deleteForm.getAttribute("data-bs-action")
                 deleteForm.setAttribute("action",action+id)

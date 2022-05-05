@@ -9,6 +9,7 @@ class Belongs extends Model
 {
     use HasFactory;
     protected $table = 'belongs';
+    protected $primaryKey = 'id_recipe';
     /**
      * The attributes that are mass assignable.
      *
