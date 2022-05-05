@@ -10,7 +10,7 @@
         </ul>
     </div>
 @endif
-<form action="/recipes/{{$recipe->id}}" method="POST" onsubmit=" return checkBoxValidation()">
+<form action="/recipes/{{$recipe->id}}" method="POST" onsubmit = "return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
   @csrf
   @method('PUT')
   <div class="mb-3">
@@ -33,7 +33,7 @@
             <th style = "font-family:verdana;">Agregar</th>
             <th style = "font-family:verdana;">Cantidad</th>
         </thead>
-        <tbody>
+        <tbody id = "body-check-ingredient">
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
                     <td>
@@ -61,7 +61,7 @@
             <th style = "font-family:verdana;">Categoría</th>
             <th style = "font-family:verdana;">Agregar</th>
         </thead>
-        <tbody>
+        <tbody id = "body-check-category">
             @foreach ($categories as $category)
                 <tr style="text-align:left">
                     <td>
@@ -102,8 +102,9 @@
     </div>
 
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
-    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alert-modal" tabindex="4">Guardar</button>
+    <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
 </form>
+
 @section('js')
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -137,10 +138,10 @@
         $checkbox = document.getElementById("checkbox"+$id);
     }
 
-    function checkBoxValidation(){
-        var form=document.getElementById("body-check");
-        var checkboxs=form.querySelectorAll("input[type='checkbox']");
-        var okay=false;
+    function checkBoxValidation($id){
+        let form=document.getElementById($id);
+        let checkboxs=form.querySelectorAll("input[type='checkbox']");
+        let okay=false;
         for(var i=0,l=checkboxs.length;i<l;i++)
         {
             if(checkboxs[i].checked)
@@ -150,6 +151,8 @@
             }
         }
         if(!okay){
+            let modal = document.getElementById("alert-modal");
+            $("#alert-modal").modal('toggle');
             return false;
         }else
             return true;

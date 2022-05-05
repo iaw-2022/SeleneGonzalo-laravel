@@ -10,7 +10,7 @@
         </ul>
     </div>
 @endif
-<form action="/recipes" method="POST" onsubmit=" return checkBoxValidation()">
+<form action="/recipes" method="POST" onsubmit = "return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
@@ -32,7 +32,7 @@
             <th style = "font-family:verdana;">Agregar</th>
             <th style = "font-family:verdana;">Cantidad</th>
         </thead>
-        <tbody>
+        <tbody id= "body-check-ingredient">
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
                     <td>
@@ -56,7 +56,7 @@
             <th style = "font-family:verdana;">Categoría</th>
             <th style = "font-family:verdana;">Agregar</th>
         </thead>
-        <tbody id="body-check">
+        <tbody id="body-check-category">
             @foreach ($categories as $category)
                 <tr style="text-align:left">
                     <td>
@@ -72,8 +72,8 @@
         </tbody>
     </table>
 
-    <!-- Modal para alerta de checkboxes -->
-    <div class="modal" tabindex="-1" id="alert-modal">
+     <!-- Modal para alerta de checkboxes -->
+     <div class="modal" tabindex="-1" id="alert-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -91,8 +91,9 @@
     </div>
 
     <a href="/recipes" class="btn btn-secondary" tabindex="5">Cancelar</a>
-    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alert-modal" tabindex="4">Guardar</button>
+    <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
 </form>
+
 @section('js')
     <script>
         function changeStatusButton($id){
@@ -111,23 +112,25 @@
           $checkbox = document.getElementById("checkbox"+$id);
         }
 
-        function checkBoxValidation(){
-            var form=document.getElementById("body-check");
-            var checkboxs=form.querySelectorAll("input[type='checkbox']");
-            var okay=false;
-            for(var i=0,l=checkboxs.length;i<l;i++)
+        function checkBoxValidation($id){
+        let form=document.getElementById($id);
+        let checkboxs=form.querySelectorAll("input[type='checkbox']");
+        let okay=false;
+        for(var i=0,l=checkboxs.length;i<l;i++)
+        {
+            if(checkboxs[i].checked)
             {
-                if(checkboxs[i].checked)
-                {
-                    okay=true;
-                    break;
-                }
+                okay=true;
+                break;
             }
-            if(!okay){
-                return false;
-            }else
-                return true;
         }
+        if(!okay){
+            let modal = document.getElementById("alert-modal");
+            $("#alert-modal").modal('toggle');
+            return false;
+        }else
+            return true;
+    }
     </script>
     @endsection
 @endsection

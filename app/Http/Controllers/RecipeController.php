@@ -115,11 +115,13 @@ class RecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $recipe = Recipe::find($id);
-
         $request -> validate(['name' => 'required|max:255']);
         $request -> validate(['image' => 'required|max:2048']);
         $request -> validate(['description' => 'required|max:700']);
+
+        $recipe = Recipe::find($id);
+        if ($recipe == null)
+            return redirect('/recipes/{{$recipe->id}}/edit')->withErrors("No se encontró la receta solicitada");
 
         $recipe-> name = $request-> get('name');
         $recipe-> image = $request-> get('image');
@@ -128,9 +130,10 @@ class RecipeController extends Controller
         $categories = $request -> input('check_categories');
 
         if($categories == null)
-            return redirect('/recipes/create')->withErrors("Debe seleccionar al menos una categoría");
+            return redirect('/recipes/{{$recipe->id}}/edit')->withErrors("Debe seleccionar al menos una categoría");
         if($ingredients == null)
-            return redirect('/recipes/create')->withErrors("Debe seleccionar al menos un ingrediente");
+            return redirect('/recipes/{{$recipe->id}}/edit')->withErrors("Debe seleccionar al menos un ingrediente");
+
         try{
             DB::beginTransaction();
             $recipe -> ingredients()->detach();
