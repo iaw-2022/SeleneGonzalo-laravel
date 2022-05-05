@@ -59,6 +59,7 @@ class RecipeController extends Controller
         $count = 0;
         $ingredients = $request -> input ('check_ingredients');
         $categories = $request -> input ('check_categories');
+        
         if($categories == null)
             return redirect('/recipes/create')->withErrors("Debe seleccionar al menos una categoría");
         if($ingredients == null)

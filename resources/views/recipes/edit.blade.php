@@ -152,7 +152,7 @@
         }
         if(!okay){
             let modal = document.getElementById("alert-modal");
-            $("#alert-modal").modal('toggle');
+            $(modal).modal('toggle');
             return false;
         }else
             return true;

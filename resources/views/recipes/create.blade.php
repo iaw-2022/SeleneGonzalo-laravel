@@ -10,7 +10,7 @@
         </ul>
     </div>
 @endif
-<form action="/recipes" method="POST" onsubmit = "return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
+<form action="/recipes" method="POST" onsubmit="return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
@@ -73,7 +73,7 @@
     </table>
 
      <!-- Modal para alerta de checkboxes -->
-     <div class="modal" tabindex="-1" id="alert-modal">
+    <div class="modal" tabindex="-1" id="alert-modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,6 +95,8 @@
 </form>
 
 @section('js')
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
     <script>
         function changeStatusButton($id){
           $text = document.getElementById("text"+$id);
@@ -125,8 +127,10 @@
             }
         }
         if(!okay){
+            console.log("entra");
             let modal = document.getElementById("alert-modal");
-            $("#alert-modal").modal('toggle');
+            console.log(modal);
+            $(modal).modal('toggle');
             return false;
         }else
             return true;
