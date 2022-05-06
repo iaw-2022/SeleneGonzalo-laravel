@@ -1,10 +1,9 @@
 @extends('template')
 
 @section('container')
-<<<<<<< HEAD
+
 
 <form action="/recipes/{{$recipe->id}}" enctype="multipart/form-data" method="POST">
-=======
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -15,7 +14,6 @@
     </div>
 @endif
 <form action="/recipes/{{$recipe->id}}" method="POST" onsubmit = "return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
->>>>>>> modificacion_de_datos
   @csrf
   @method('PUT')
   <div class="mb-3">
@@ -27,14 +25,12 @@
     <input id="image" name="image" type="file" class="form-control" accept = "image/*" onchange="loadImage(event)">
     <img class = "mt-3" style = "width: 150px" src = "{{$recipe->image}}" id="selected"/>
   </div>
+
   <div class="mb-3">
     <label for="" class="form-label">Descripción</label>
     <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px">{{$recipe->description}}</textarea>
   </div>
-<<<<<<< HEAD
-=======
 
->>>>>>> modificacion_de_datos
   <div class="container" style="height: 250px">
     <table class= "table table-responsive">
         <thead>
@@ -42,11 +38,7 @@
             <th style = "font-family:verdana;">Agregar</th>
             <th style = "font-family:verdana;">Cantidad</th>
         </thead>
-<<<<<<< HEAD
-        <tbody>
-=======
         <tbody id = "body-check-ingredient">
->>>>>>> modificacion_de_datos
             @foreach ($ingredients as $ingredient)
                 <tr style="text-align:left">
                     <td>

@@ -18,8 +18,10 @@
   </div>
   <div class="mb-3">
     <label for="" class="form-label">Imagen</label>
-    <input id="image" name="image" type="text" class="form-control" required value = "{{old('image')}}">
+    <input id="image" name="image" type="file" class="form-control" accept = "image/*" onchange="loadImage(event)">
+    <img class = "mt-3" style = "width: 150px" id="selected"/>
   </div>
+
   <div class="mb-3">
     <label for="" class="form-label">Descripción</label>
     <textarea class="form-control" name="description" style="white-space: pre-line; height: 250px" required>{{old('description')}}</textarea>
@@ -134,7 +136,16 @@
             return false;
         }else
             return true;
-    }
+        }
+
+        <!-- vista previa de la imagen -->
+        var loadImage = function(event) {
+            var selected = document.getElementById('selected');
+            selected.src = URL.createObjectURL(event.target.files[0]);
+            selected.onload = function() {
+                URL.revokeObjectURL(selected.src)
+            }
+        };
     </script>
     @endsection
 @endsection
