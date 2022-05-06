@@ -54,17 +54,8 @@ class RecipeController extends Controller
         $recipes-> name = $request-> get('name');
 
         $file = $request-> file('image');
-        
-        if ($file != null){
-            $recipes->image = $image->getPath();
-            $recipes->image_path = $image->getPublicId();
-            try{
-                Cloudinary::destroy($recipe->image_path);
-                $image = $file->storeOnCloudinary('/recipes');
-            }catch(Exception $exc){
-                return redirect ('/recipes/$id/edit')->withError("No se pudo cargar la imagen");
-            }
-        }
+
+        $image = $file->storeOnCloudinary('/recipes');
         $recipes->image = $image->getPath();
         $recipes->image_path = $image->getPublicId();
 
@@ -152,7 +143,7 @@ class RecipeController extends Controller
                 return redirect ('/recipes/$id/edit')->withError("No se pudo cargar la imagen");
             }
         }
-
+        
         $recipe->image = $image->getPath();
         $recipe->image_path = $image->getPublicId();
 

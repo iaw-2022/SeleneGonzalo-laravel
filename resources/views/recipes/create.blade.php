@@ -10,7 +10,7 @@
         </ul>
     </div>
 @endif
-<form action="/recipes" method="POST" onsubmit="return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
+<form action="/recipes" method="POST" enctype="multipart/form-data" onsubmit="return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
   @csrf
   <div class="mb-3">
     <label for="" class="form-label">Nombre</label>
