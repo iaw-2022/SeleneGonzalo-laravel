@@ -48,7 +48,6 @@ class RecipeController extends Controller
         $recipes = new Recipe();
 
         $request -> validate(['name' => 'required|max:255']);
-        $request -> validate(['image' => 'required|max:2048']);
         $request -> validate(['description' => 'required|max:700']);
 
         $recipes-> name = $request-> get('name');
@@ -124,7 +123,6 @@ class RecipeController extends Controller
     public function update(Request $request, $id)
     {
         $request -> validate(['name' => 'required|max:255']);
-        $request -> validate(['image' => 'required|max:2048']);
         $request -> validate(['description' => 'required|max:700']);
 
         $recipe = Recipe::find($id);
@@ -139,13 +137,12 @@ class RecipeController extends Controller
             try{
                 Cloudinary::destroy($recipe->image_path);
                 $image = $file->storeOnCloudinary('/recipes');
+                $recipe->image = $image->getPath();
+                $recipe->image_path = $image->getPublicId();
             }catch(Exception $exc){
                 return redirect ('/recipes/$id/edit')->withError("No se pudo cargar la imagen");
             }
         }
-        
-        $recipe->image = $image->getPath();
-        $recipe->image_path = $image->getPublicId();
 
         $recipe-> description = $request-> get('description');
 

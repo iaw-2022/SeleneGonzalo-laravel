@@ -129,10 +129,8 @@
             }
         }
         if(!okay){
-            console.log("entra");
             let modal = document.getElementById("alert-modal");
-            console.log(modal);
-            $(modal).modal('toggle');
+            $("#alert-modal").modal('toggle');
             return false;
         }else
             return true;

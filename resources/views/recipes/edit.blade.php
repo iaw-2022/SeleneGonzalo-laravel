@@ -164,7 +164,7 @@
         }
         if(!okay){
             let modal = document.getElementById("alert-modal");
-            $(modal).modal('toggle');
+            $("#alert-modal").modal('toggle');
             return false;
         }else
             return true;
