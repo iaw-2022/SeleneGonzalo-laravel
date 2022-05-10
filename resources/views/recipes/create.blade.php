@@ -42,7 +42,7 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}')">
+                            <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}',true)">
                         </div>
                     </td>
                     <td>
@@ -66,7 +66,7 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category->id}}" id="checkbox{{$category->id}}" onchange="changeStatusButtonCategory('{{$category->id}}')">
+                            <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category->id}}" id="checkbox{{$category->id}}" onchange="changeStatusButton('{{$category->id}}',false)">
                         </div>
                     </td>
                 </tr>
@@ -97,27 +97,25 @@
 </form>
 
 @section('js')
+    
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <script>
-        function changeStatusButton($id){
-          $text = document.getElementById("text"+$id);
-          $checkbox = document.getElementById("checkbox"+$id);
-          if($checkbox.checked)
-            $text.disabled = false;
-          else{
-            $text.disabled = true;
-            $text.value = '';
-          }
+        function changeStatusButton(id, ingredient){
+            text = document.getElementById("text"+id);
+            checkbox = document.getElementById("checkbox"+id);
+            if (ingredient){
+                if(checkbox.checked)
+                    text.disabled = false;
+                else{
+                    text.disabled = true;
+                    text.value = '';
+                }
+            }
         }
 
-        function changeStatusButtonCategory($id){
-          $text = document.getElementById("text"+$id);
-          $checkbox = document.getElementById("checkbox"+$id);
-        }
-
-        function checkBoxValidation($id){
-        let form=document.getElementById($id);
+        function checkBoxValidation(id){
+        let form=document.getElementById(id);
         let checkboxs=form.querySelectorAll("input[type='checkbox']");
         let okay=false;
         for(var i=0,l=checkboxs.length;i<l;i++)

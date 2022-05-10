@@ -2,8 +2,6 @@
 
 @section('container')
 
-
-<form action="/recipes/{{$recipe->id}}" enctype="multipart/form-data" method="POST">
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -13,7 +11,7 @@
         </ul>
     </div>
 @endif
-<form action="/recipes/{{$recipe->id}}" method="POST" onsubmit = "return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
+<form action="/recipes/{{$recipe->id}}" enctype="multipart/form-data" method="POST" onsubmit = "return checkBoxValidation('body-check-category') && checkBoxValidation('body-check-ingredient')">
   @csrf
   @method('PUT')
   <div class="mb-3">
@@ -49,14 +47,14 @@
                         @if ($ingredient_result->exists())
                             @php $ingredient_id = $ingredient_result->first()->id_ingredient @endphp
                             <td>
-                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient_id}}" id="checkbox{{$ingredient_id}}" onchange="changeStatusButton('{{$ingredient_id}}')" checked>
+                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient_id}}" id="checkbox{{$ingredient_id}}" onchange="changeStatusButton('{{$ingredient_id}}',true)" checked>
                             </td>
                             <td>
                                 <input type="text" class="form-control" name="lot[]" value="{{$ingredient_result -> first() -> lot}}" id="text{{$ingredient_id}}" required>
                             </td>
                         @else
                             <td>
-                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}')">
+                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}',true)">
                             </td>
                             <td>
                                 <input type="text" class="form-control" name="lot[]" value="" id="text{{$ingredient->id}}" disabled required>
@@ -83,9 +81,9 @@
                             @php $category_result = $recipe->hasCategory($category->id) @endphp
                             @if ($category_result->exists())
                                 @php $category_id = $category_result->first()->id_category @endphp
-                                <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category_id}}" id="checkbox{{$category_id}}" onchange="changeStatusButtonCategory('{{$category_id}}')" checked>
+                                <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category_id}}" id="checkbox{{$category_id}}" onchange="changeStatusButton('{{$category_id}}',false)" checked>
                             @else
-                                <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category->id}}" id="checkbox{{$category->id}}" onchange="changeStatusButtonCategory('{{$category->id}}')">
+                                <input class="form-check-input" name = "check_categories[]" type="checkbox" value="{{$category->id}}" id="checkbox{{$category->id}}" onchange="changeStatusButton('{{$category->id}}',false)">
                             @endif
                         </div>
                     </td>
@@ -117,41 +115,32 @@
 </form>
 
 @section('js')
+    <!-- script utilizado para las alertas con modales -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <!--   Datatables-->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
 
-    <!-- extension responsive -->
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-
-        <!-- habilitar/deshabilitar botón según checkbox-->
+    <!-- habilitar/deshabilitar botón según checkbox-->
     <script>
-    $(document).ready(function() {
+    (document).ready(function() {
         $('#recipe-table').DataTable({
             responsive:true
         })
     });
 
-    function changeStatusButton($id){
-        $text = document.getElementById("text"+$id);
-        $checkbox = document.getElementById("checkbox"+$id);
-        if($checkbox.checked)
-        $text.disabled = false;
-        else{
-        $text.disabled = true;
-        $text.value = '';
+    function changeStatusButton(id, ingredient){
+        text = document.getElementById("text"+id);
+        checkbox = document.getElementById("checkbox"+id);
+        if (ingredient){
+            if(checkbox.checked)
+                text.disabled = false;
+            else{
+                text.disabled = true;
+                text.value = '';
+            }
         }
     }
 
-    function changeStatusButtonCategory($id){
-        $text = document.getElementById("text"+$id);
-        $checkbox = document.getElementById("checkbox"+$id);
-    }
-
-    function checkBoxValidation($id){
-        let form=document.getElementById($id);
+    function checkBoxValidation(id){
+        let form=document.getElementById(id);
         let checkboxs=form.querySelectorAll("input[type='checkbox']");
         let okay=false;
         for(var i=0,l=checkboxs.length;i<l;i++)

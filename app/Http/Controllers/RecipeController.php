@@ -54,9 +54,13 @@ class RecipeController extends Controller
 
         $file = $request-> file('image');
 
-        $image = $file->storeOnCloudinary('/recipes');
-        $recipes->image = $image->getPath();
-        $recipes->image_path = $image->getPublicId();
+        if ($file != null){
+            $image = $file->storeOnCloudinary('/recipes');
+            $recipes->image = $image->getPath();
+            $recipes->image_path = $image->getPublicId();
+        } else{
+            return redirect('/recipes/create')->withErrors("Debe seleccionar una imagen");
+        }
 
         $recipes-> description = $request-> get('description');
         $recipes->save();
@@ -127,7 +131,7 @@ class RecipeController extends Controller
 
         $recipe = Recipe::find($id);
         if ($recipe == null)
-            return redirect('/recipes/{{$recipe->id}}/edit')->withErrors("No se encontró la receta solicitada");
+            return redirect('/recipes/'.$id.'/edit')->withErrors("No se encontró la receta solicitada");
 
         $recipe-> name = $request-> get('name');
 
@@ -135,12 +139,13 @@ class RecipeController extends Controller
         
         if ($file != null){
             try{
-                Cloudinary::destroy($recipe->image_path);
+                if ($recipe -> image_path != null)
+                    Cloudinary::destroy($recipe->image_path);
                 $image = $file->storeOnCloudinary('/recipes');
                 $recipe->image = $image->getPath();
                 $recipe->image_path = $image->getPublicId();
             }catch(Exception $exc){
-                return redirect ('/recipes/$id/edit')->withError("No se pudo cargar la imagen");
+                return redirect ('/recipes/'.$id.'/edit')->withError("No se pudo cargar la imagen");
             }
         }
 
@@ -150,9 +155,9 @@ class RecipeController extends Controller
         $categories = $request -> input('check_categories');
 
         if($categories == null)
-            return redirect('/recipes/{{$recipe->id}}/edit')->withErrors("Debe seleccionar al menos una categoría");
+            return redirect('/recipes/'.$id.'/edit')->withErrors("Debe seleccionar al menos una categoría");
         if($ingredients == null)
-            return redirect('/recipes/{{$recipe->id}}/edit')->withErrors("Debe seleccionar al menos un ingrediente");
+            return redirect('/recipes/'.$id.'/edit')->withErrors("Debe seleccionar al menos un ingrediente");
 
         try{
             DB::beginTransaction();
@@ -196,9 +201,8 @@ class RecipeController extends Controller
             abort(404, "No se encontró la receta para eliminar");
         }
 
-        if ($recipe != null){
+        if ($recipe -> image_path != null)
             Cloudinary::destroy($recipe->image_path);
-        }
 
         $recipe->delete();
 
