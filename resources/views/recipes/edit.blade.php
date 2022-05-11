@@ -41,25 +41,23 @@
                         <td>
                             {{$ingredient -> name}}
                         </td>
-                        <div class="form-check">
-                            @php $ingredient_result = $recipe->hasIngredient($ingredient->id) @endphp
-                            @if ($ingredient_result->exists())
-                                @php $ingredient_id = $ingredient_result->first()->id_ingredient @endphp
-                                <td>
-                                    <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient_id}}" id="checkbox{{$ingredient_id}}" onchange="changeStatusButton('{{$ingredient_id}}',true)" checked>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="lot[]" value="{{$ingredient_result -> first() -> lot}}" id="text{{$ingredient_id}}" required>
-                                </td>
-                            @else
-                                <td>
-                                    <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}',true)">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" name="lot[]" value="" id="text{{$ingredient->id}}" disabled required>
-                                </td>
-                            @endif
-                        </div>
+                        @php $ingredient_result = $recipe->hasIngredient($ingredient->id) @endphp
+                        @if ($ingredient_result->exists())
+                            @php $ingredient_id = $ingredient_result->first()->id_ingredient @endphp
+                            <td>
+                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient_id}}" id="checkbox{{$ingredient_id}}" onchange="changeStatusButton('{{$ingredient_id}}',true)" checked>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="lot[]" value="{{$ingredient_result -> first() -> lot}}" id="text{{$ingredient_id}}" required>
+                            </td>
+                        @else
+                            <td>
+                                <input class="form-check-input" name = "check_ingredients[]" type="checkbox" value="{{$ingredient->id}}" id="checkbox{{$ingredient->id}}" onchange="changeStatusButton('{{$ingredient->id}}',true)">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="lot[]" value="" id="text{{$ingredient->id}}" disabled required>
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
