@@ -26,8 +26,16 @@
     <label for="" class="form-label">Contraseña</label>
     <input id="pass" name="pass" type="text" class="form-control" tabindex="4" required value = "{{old('pass')}}">
   </div>
-  <a href="/users" class="btn btn-secondary" tabindex="5">Cancelar</a>
-  <button type="submit" class="btn btn-primary" tabindex="4">Guardar</button>
+
+  <select class="form-select" name = "rol" aria-label="Default select example">
+    <option selected>Rol</option>
+    @foreach ($rol as $r)
+        <option value="{{$r->id}}">{{$r->name}}</option>
+    @endforeach
+  </select>
+
+  <a href="/users" class="mt-3 btn btn-secondary" tabindex="5">Cancelar</a>
+  <button type="submit" class="mt-3 btn btn-primary" tabindex="4">Guardar</button>
 </form>
 
 @endsection

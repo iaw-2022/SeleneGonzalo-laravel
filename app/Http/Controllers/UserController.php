@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Rol;
 
 class UserController extends Controller
 {
@@ -12,6 +13,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('AdminPermission');
+    }
+
     public function index()
     {
         $users = User::all();
@@ -25,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view ('users.create');
+        $rol = Rol::all();
+        return view ('users.create')->with('rol',$rol);
     }
 
     /**
@@ -45,6 +52,7 @@ class UserController extends Controller
         $users-> name = $request-> get('name');
         $users-> email = $request-> get('email');
         $users-> password = bcrypt($request-> get('pass'));
+        $users-> id_rol = $request-> get('rol');
 
         $users->save();
 

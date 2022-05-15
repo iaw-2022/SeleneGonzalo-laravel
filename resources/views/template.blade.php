@@ -21,48 +21,53 @@
   <body>
     <div class="container">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-xxl-between py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-2 text-dark text-decoration-none ml-auto">
-          <img src="https://logos-download.com/wp-content/uploads/2021/01/Sin_T.A.C.C._Logo.png" alt="" style="width:50px;">
-          <h1 style = "font-family:verdana;">RECETACCS</h1>
-        </a>
+            <a href="/" class="d-flex align-items-center mb-2 text-dark text-decoration-none ml-auto">
+            <img src="https://logos-download.com/wp-content/uploads/2021/01/Sin_T.A.C.C._Logo.png" alt="" style="width:50px;">
+            <h1 style = "font-family:verdana;">RECETACCS</h1>
+            </a>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 mx-auto ">
-          <li><a href="/recipes" class="nav-link px-2 link-dark">
-                <span class="material-icons-outlined">
-                  menu_book
-                </span>
-                Recetas
-              </a>
-            </li>
-          <li><a href="/ingredients" class="nav-link px-2 link-dark">
-                <span class="material-icons-outlined">
-                  egg_alt
-                </span>
-                Ingredientes
-              </a>
-            </li>
-          <li><a href="/categories" class="nav-link px-2 link-dark">
-                <span class="material-icons-outlined">
-                  local_dining
-                </span>
-                Categorías
-              </a>
-            </li>
-          <li><a href="/users" class="nav-link px-2 link-dark">
-                <span class="material-icons-outlined">
-                  people_outline
-                </span>
-                Usuarios
-              </a>
-            </li>
-        </ul>
-        <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Cerrar sesión
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 mx-auto ">
+                <li>
+                    <a href="/recipes" class="nav-link px-2 link-dark">
+                        <span class="material-icons-outlined">
+                        menu_book
+                        </span>
+                        Recetas
+                    </a>
+                </li>
+            @if (Auth::user()->id_rol == '1')
+                    <li>
+                        <a href="/ingredients" class="nav-link px-2 link-dark">
+                            <span class="material-icons-outlined">
+                            egg_alt
+                            </span>
+                            Ingredientes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/categories" class="nav-link px-2 link-dark">
+                            <span class="material-icons-outlined">
+                            local_dining
+                            </span>
+                            Categorías
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users" class="nav-link px-2 link-dark">
+                            <span class="material-icons-outlined">
+                            people_outline
+                            </span>
+                            Usuarios
+                        </a>
+                    </li>
+                </ul>
+            @endif
+            <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Cerrar sesión
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
       </header>
     </div>
     <div class="container">

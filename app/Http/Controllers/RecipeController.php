@@ -18,6 +18,12 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('CanSeeRecipes')->only('index', 'show');
+        $this->middleware('CanManageRecipes')-> except ('index', 'show');
+    }
+
     public function index()
     {
         $recipes = Recipe::all();
@@ -69,7 +75,7 @@ class RecipeController extends Controller
         $count = 0;
         $ingredients = $request -> input ('check_ingredients');
         $categories = $request -> input ('check_categories');
-        
+
         if($categories == null)
             return redirect('/recipes/create')->withErrors("Debe seleccionar al menos una categoría");
         if($ingredients == null)
@@ -136,7 +142,7 @@ class RecipeController extends Controller
         $recipe-> name = $request-> get('name');
 
         $file = $request-> file('image');
-        
+
         if ($file != null){
             try{
                 if ($recipe -> image_path != null)

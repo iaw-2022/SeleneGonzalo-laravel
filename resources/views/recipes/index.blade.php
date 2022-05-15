@@ -1,9 +1,11 @@
 @extends('template')
 
 @section('container')
-    <a class = "mb-3 btn btn-success" href="recipes/create">
-        Agregar receta
-    </a>
+    @if ((Auth::user()->id_rol == '1') || (Auth::user()->id_rol == '2'))
+        <a class = "mb-3 btn btn-success" href="recipes/create">
+            Agregar receta
+        </a>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -13,7 +15,9 @@
                             <th style = "font-family:verdana;">Imagen ilustrativa</th>
                             <th style = "font-family:verdana;">Ingredientes</th>
                             <th style = "font-family:verdana;">Categoría/s</th>
-                            <th style = "font-family:verdana;">Acciones</th>
+                            @if ((Auth::user()->id_rol == '1') || Auth::user()->id_rol == '2')
+                                <th style = "font-family:verdana;">Acciones</th>
+                            @endif
                         </thead>
                         <tbody class = "text-center">
                             @foreach ($recipes as $recipe)
@@ -36,16 +40,18 @@
                                     </td>
                                     <td>
                                         <!-- Invocacion al Modal -->
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$recipe->id}}">
-                                            <span class="material-icons-outlined">
-                                                delete
-                                            </span>
-                                        </button>
-                                        <a class="btn btn-primary" href="recipes/{{$recipe -> id}}/edit">
-                                            <span class="material-icons-outlined">
-                                                edit
-                                            </span>
-                                        </a>
+                                        @if ((Auth::user()->id_rol == '1') || (Auth::user()->id_rol == '2'))
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$recipe->id}}">
+                                                <span class="material-icons-outlined">
+                                                    delete
+                                                </span>
+                                            </button>
+                                            <a class="btn btn-primary" href="recipes/{{$recipe -> id}}/edit">
+                                                <span class="material-icons-outlined">
+                                                    edit
+                                                </span>
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -55,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
     <!-- Modal -->
     <div class="modal fade text-dark" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

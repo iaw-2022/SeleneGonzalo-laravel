@@ -12,6 +12,10 @@ class IngredientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('AdminPermission');
+    }
     public function index()
     {
         $ingredients = Ingredient::all();
