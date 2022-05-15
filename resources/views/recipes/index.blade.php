@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('container')
-    @if ((Auth::user()->id_rol == '1') || (Auth::user()->id_rol == '2'))
+    @if (Auth::user()->id_rol == '1')
         <a class = "mb-3 btn btn-success" href="recipes/create">
             Agregar receta
         </a>
