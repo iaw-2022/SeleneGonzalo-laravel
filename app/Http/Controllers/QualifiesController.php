@@ -14,7 +14,7 @@ class QualifiesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('AdminPermission');
+        $this->middleware('CanManageRecipes')-> except ('index', 'show');
     }
 
     public function index()

@@ -35,23 +35,25 @@
                         Recetas
                     </a>
                 </li>
-            @if (Auth::user()->id_rol == '1')
-                    <li>
-                        <a href="/ingredients" class="nav-link px-2 link-dark">
-                            <span class="material-icons-outlined">
-                            egg_alt
-                            </span>
-                            Ingredientes
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/categories" class="nav-link px-2 link-dark">
-                            <span class="material-icons-outlined">
-                            local_dining
-                            </span>
-                            Categorías
-                        </a>
-                    </li>
+                @if ((Auth::user()->id_rol == '1') || (Auth::user()->id_rol == '2'))
+                        <li>
+                            <a href="/ingredients" class="nav-link px-2 link-dark">
+                                <span class="material-icons-outlined">
+                                egg_alt
+                                </span>
+                                Ingredientes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/categories" class="nav-link px-2 link-dark">
+                                <span class="material-icons-outlined">
+                                local_dining
+                                </span>
+                                Categorías
+                            </a>
+                        </li>
+                @endif
+                @if (Auth::user()->id_rol == '1')
                     <li>
                         <a href="/users" class="nav-link px-2 link-dark">
                             <span class="material-icons-outlined">
@@ -60,8 +62,8 @@
                             Usuarios
                         </a>
                     </li>
-                </ul>
-            @endif
+                @endif
+            </ul>
             <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 Cerrar sesión
             </a>
