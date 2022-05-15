@@ -40,11 +40,13 @@
         <li class="list-group-item">
           Comentario: {{$q -> pivot -> commentary}}
         </li>
-        <button class="btn btn-danger" style="max-width: 50px;" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$q->pivot->id}}">
-            <span class="material-icons-outlined">
-                delete
-            </span>
-        </button>
+        @if (Auth::user()->id_rol == '1')
+            <button class="btn btn-danger" style="max-width: 50px;" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$q->pivot->id}}">
+                <span class="material-icons-outlined">
+                    delete
+                </span>
+            </button>
+        @endif
       @endforeach
     </ul>
 </div>
@@ -79,7 +81,7 @@
             var deleteModal = document.getElementById('delete-modal')
             deleteModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget
-                var id = button.getAttribute('data-bs-id')     
+                var id = button.getAttribute('data-bs-id')
                 var deleteForm = deleteModal.querySelector('#deleteForm')
                 var action = deleteForm.getAttribute("data-bs-action")
                 deleteForm.setAttribute("action",action+id)
