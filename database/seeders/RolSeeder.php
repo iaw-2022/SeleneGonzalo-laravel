@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RolSeeder extends Seeder
+
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      *
      * @return void
      */
@@ -17,13 +19,13 @@ class RolSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'admin'
+                'name' => 'Administrador',
             ],
             [
-                'name' => 'user'
+                'name' => 'Usuario',
             ],
             [
-                'name' => 'observer'
+                'name' => 'Observador',
             ]
         ];
         DB :: table ('roles') -> insert ($data);

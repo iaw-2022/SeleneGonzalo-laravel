@@ -13,6 +13,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('AdminPermission');
+    }
+
     public function index()
     {
         $users = User::all();
@@ -39,12 +44,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $users = new User();
-        $users-> name = $request-> get('name');
-        $users-> email = $request-> get('email');
-        $users-> password = $request-> get('pass');
+
         $request -> validate(['name' => 'required|max:255']);
         $request -> validate(['email' => 'required|max:500']);
         $request -> validate(['pass' => 'required|max:500']);
+
+        $users-> name = $request-> get('name');
+        $users-> email = $request-> get('email');
+        $users-> password = bcrypt($request-> get('pass'));
+        $users-> id_rol = $request-> get('rol');
 
         $users->save();
 

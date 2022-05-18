@@ -12,6 +12,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('CanManageRecipes')-> except ('index', 'show');
+    }
+
     public function index()
     {
         $categories = Category::all();

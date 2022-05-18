@@ -17,11 +17,13 @@
                 </td>
                 <td>
                     <!-- Invocacion al Modal -->
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$category->id}}">
-                        <span class="material-icons-outlined">
-                            delete
-                        </span>
-                    </button>
+                    @if (Auth::user()->id_rol == '1')
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" data-bs-id="{{$category->id}}">
+                            <span class="material-icons-outlined">
+                                delete
+                            </span>
+                        </button>
+                    @endif
                     <a class="btn btn-primary" href="categories/{{$category -> id}}/edit">
                         <span class="material-icons-outlined">
                             edit
@@ -60,9 +62,9 @@
     </div>
 
 @section('js')
+        <!-- script utilizado para las alertas con modales -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
         <!--   Datatables-->
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
 
@@ -77,7 +79,7 @@
             var deleteModal = document.getElementById('delete-modal')
             deleteModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget
-                var id = button.getAttribute('data-bs-id')     
+                var id = button.getAttribute('data-bs-id')
                 var deleteForm = deleteModal.querySelector('#deleteForm')
                 var action = deleteForm.getAttribute("data-bs-action")
                 deleteForm.setAttribute("action",action+id)
